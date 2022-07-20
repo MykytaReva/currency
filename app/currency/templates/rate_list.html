@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title_block %}Rate List{% endblock title_block %}
+
+{% block main_content %}
+    <TABLE width="200px" border="1px">
+        {% for rate in rate_list %}
+        <tr>
+            <th>{{ rate.id }}</th>
+            <td>{{ rate.sale }}</td>
+            <td>{{ rate.buy }}</td>
+        </tr>
+        {% endfor%}
+
+
+{% endblock main_content %}
