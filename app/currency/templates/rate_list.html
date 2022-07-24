@@ -3,7 +3,13 @@
 {% block title_block %}Rate List{% endblock title_block %}
 
 {% block main_content %}
-    <TABLE width="200px" border="1px">
+
+    <table>
+    <tr>
+        <th>{{ "Id" }}</th>
+        <th>{{ "Sale" }}</th>
+        <th>{{ "Buy" }}</th>
+    </tr>
         {% for rate in rate_list %}
         <tr>
             <th>{{ rate.id }}</th>
@@ -11,6 +17,6 @@
             <td>{{ rate.buy }}</td>
         </tr>
         {% endfor%}
-    </TABLE>
+    </table>
 
 {% endblock main_content %}

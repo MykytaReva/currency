@@ -3,16 +3,23 @@
 {% block title_block %}Contact List{% endblock title_block %}
 
 {% block main_content %}
-    <TABLE width="1000px" border="1px">
+    <table>
+        <tr>
+            <th>{{ "email_from" }}</th>
+            <th>{{ "email_to" }}</th>
+            <th>{{ "subject" }}</th>
+            <th>{{ "message" }}</th>
+            <th>{{ "time" }}</th>
+        </tr>
         {% for us in contactus_list %}
         <tr>
-            <th>{{ us.email_from }}</th>
-            <td>{{ us.email_to}}</td>
-            <td>{{ us.subject}}</td>
-            <td>{{ us.message}}</td>
-            <td>{{ us.sent}}</td>
+            <td>{{ us.email_from }}</td>
+            <td>{{ us.email_to }}</td>
+            <td>{{ us.subject }}</td>
+            <td>{{ us.message }}</td>
+            <td>{{ us.sent }}</td>
         </tr>
         {% endfor%}
-    </TABLE>
+    </table>
 
 {% endblock main_content %}
