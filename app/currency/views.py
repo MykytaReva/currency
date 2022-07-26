@@ -1,6 +1,4 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from currency.forms import RateForm, ContactUsForm, SourceForm
 from currency.models import Rate, ContactUs, Source
 
