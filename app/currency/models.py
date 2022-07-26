@@ -16,3 +16,10 @@ class ContactUs(models.Model):
     subject = models.CharField(max_length=100)
     message = models.CharField(max_length=7000)
     sent = models.DateTimeField(auto_now_add=True)
+
+
+class Source(models.Model):
+    source = models.CharField(max_length=255)
+    name = models.CharField(max_length=64)
+    theme = models.CharField(max_length=255)
+    price = models.FloatField()

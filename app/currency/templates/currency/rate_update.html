@@ -1,0 +1,16 @@
+{% extends 'currency/base.html' %}
+
+{% block title_block %} Update {% endblock title_block %}
+
+{% block main_content %}
+    Update Rate
+
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+        <button type="reset">Reset</button>
+    <button type="submit">Save</button>
+    </form>
+
+
+{% endblock main_content %}
