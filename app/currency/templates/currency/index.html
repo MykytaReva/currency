@@ -5,16 +5,19 @@
 
 {% block main_content %}
     <div>Currency Exchange Project</div>
+    <div>Rate count: {{ rate_count }}</div>
     <div>
-    View list: <a href="/rate/list", title="Link", target="'_blank">Click Here</a>
+    View list: <a href="{% url 'currency:rate_list' %}", title="Link">Click Here</a>
     </div>
+    <div>Contact count: {{ contactus_count }}</div>
     <div>Contacts:</div>
     <div>
-    View list: <a href="contact/us/", title="Link", target="'_blank">Click Here</a>
+    View list: <a href="{% url 'currency:contactus_list' %}", title="Link">Click Here</a>
     </div>
+    <div>Source count: {{ source_count }}</div>
     <div>Source:</div>
     <div>
-    View list: <a href="/source/list/", title="Link", target="_blank">Click here</a>
+    View list: <a href="{% url 'currency:source_list' %}", title="Link">Click here</a>
     </div>
 
 {% endblock main_content %}

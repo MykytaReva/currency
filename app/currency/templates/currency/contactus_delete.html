@@ -4,12 +4,12 @@
 
 {% block main_content %}
     Delete Contact
-    <div>Do you want to delete contact with ID {{  instance.id }}?</div>
+    <div>Do you want to delete contact with ID {{  contactus.id }}?</div>
     <form method="post">
     {% csrf_token %}
     <button type="submit">Yes</button>
     </form>
-    <a href="/contact/us/">
+    <a href="{% url 'currency:contactus_list' %}">
         <button>No</button>
     </a>
 

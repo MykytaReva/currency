@@ -4,12 +4,12 @@
 
 {% block main_content %}
     Delete Source
-    <div>Do you want to delete source wih ID {{ instance.id }}?</div>
+    <div>Do you want to delete source wih ID {{ source.id }}?</div>
     <form method="post">
     {% csrf_token %}
     <button type="submit">Yes</button>
     </form>
-    <a href="/source/list/">
+    <a href="{% url 'currency:source_list' %}">
         <button>No</button>
     </a>
 

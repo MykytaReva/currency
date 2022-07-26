@@ -3,7 +3,7 @@
 {% block title_block %}Contact List{% endblock title_block %}
 
 {% block main_content %}
-    <div><a href="/contactus/create/">Create new contact</a> </div>
+    <div><a href="{% url 'currency:contactus_create' %}">Create new contact</a> </div>
     <table>
         <tr>
             <th>Id</th>
@@ -16,11 +16,11 @@
             <td style="text-align: center">{{ us.id }}</td>
             <td style="text-align: center">{{ us.email_from }}</td>
             <td style="text-align: center">{{ us.email_to }}</td>
-            <td><a href="/contactus/details/{{ us.id }}/">View details</a></td>
-            <td><a href="/contactus/update/{{ us.id }}/">Update</a></td>
-            <td><a href="/contactus/delete/{{ us.id }}/">Delete</a></td>
+            <td><a href="{% url 'currency:contactus_details' pk=us.id %}">View details</a></td>
+            <td><a href="{% url 'currency:contactus_update' pk=us.id %}">Update</a></td>
+            <td><a href="{% url 'currency:contactus_delete' pk=us.id %}">Delete</a></td>
         </tr>
-        {% endfor%}
+        {% endfor %}
     </table>
 
 {% endblock main_content %}
