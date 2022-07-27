@@ -1,10 +1,13 @@
 from django.contrib import admin
-from django.urls import path
-from currency.views import generator, printer
-
+from django.urls import path, include
+from currency import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('generate/', generator),
-    path('hi/', printer)
+
+    path('', views.IndexView.as_view()),
+
+    path('currency/', include('currency.urls')),
+
+    path('__debug__/', include('debug_toolbar.urls'))
 ]

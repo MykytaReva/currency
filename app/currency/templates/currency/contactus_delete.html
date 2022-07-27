@@ -1,0 +1,16 @@
+{% extends 'currency/base.html' %}
+
+{% block title_block %} Delete {% endblock title_block %}
+
+{% block main_content %}
+    Delete Contact
+    <div>Do you want to delete contact with ID {{  contactus.id }}?</div>
+    <form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes</button>
+    </form>
+    <a href="{% url 'currency:contactus_list' %}">
+        <button>No</button>
+    </a>
+
+{% endblock main_content %}

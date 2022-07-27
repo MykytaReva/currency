@@ -1,0 +1,26 @@
+{% extends 'currency/base.html' %}
+
+{% block title_block %} Rate Details {% endblock title_block %}
+
+{% block main_content %}
+    <table>
+    <tr>
+        <th colspan="5">Rate Details</th>
+    </tr>
+    <tr>
+        <th>Id</th>
+        <th>Buy</th>
+        <th>Sale</th>
+        <th>Currency</th>
+        <th>Source</th>
+    </tr>
+    <tr>
+        <td>{{ rate.id }}</td>
+        <td>{{ rate.buy }}</td>
+        <td>{{ rate.sale }}</td>
+        <td>{{ rate.base_currency_type}} - {{rate.currency_type}}</td>
+        <td>{{ rate.source}}</td>
+    </tr>
+    </table>
+
+{% endblock main_content %}

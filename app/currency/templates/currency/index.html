@@ -1,0 +1,23 @@
+{% extends 'currency/base.html' %}
+
+
+{% block title_block %}HOME{% endblock title_block %}
+
+{% block main_content %}
+    <div>Currency Exchange Project</div>
+    <div>Rate count: {{ rate_count }}</div>
+    <div>
+    View list: <a href="{% url 'currency:rate_list' %}", title="Link">Click Here</a>
+    </div>
+    <div>Contact count: {{ contactus_count }}</div>
+    <div>Contacts:</div>
+    <div>
+    View list: <a href="{% url 'currency:contactus_list' %}", title="Link">Click Here</a>
+    </div>
+    <div>Source count: {{ source_count }}</div>
+    <div>Source:</div>
+    <div>
+    View list: <a href="{% url 'currency:source_list' %}", title="Link">Click here</a>
+    </div>
+
+{% endblock main_content %}
