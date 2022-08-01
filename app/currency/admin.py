@@ -4,6 +4,7 @@ from rangefilter.filters import DateTimeRangeFilter
 
 
 class RateAdmin(admin.ModelAdmin):
+
     list_display = (
         'id',
         'base_currency_type',
@@ -19,12 +20,16 @@ class RateAdmin(admin.ModelAdmin):
         'buy',
         'source',
     )
+
     def has_add_permission(self, request):
         return False
+
     def has_delete_permission(self, request, obj=None):
         return False
+
     def has_create_permission(self, request, obj=None):
         return False
+
     search_fields = (
         'id',
         'base_currency_type',
@@ -36,6 +41,7 @@ class RateAdmin(admin.ModelAdmin):
         'base_currency_type',
         ('created', DateTimeRangeFilter),
     )
+
 
 class ContactUsAdmin(admin.ModelAdmin):
     list_display = (
@@ -51,12 +57,16 @@ class ContactUsAdmin(admin.ModelAdmin):
         'subject',
         'message',
     )
+
     def has_add_permission(self, request, obj=None):
         return False
+
     def has_delete_permission(self, request, obj=None):
         return False
+
     def has_create_permission(self, request, obj=None):
         return False
+
     search_fields = (
         'id',
         'email_from',
@@ -67,6 +77,7 @@ class ContactUsAdmin(admin.ModelAdmin):
     list_filter = (
         ('sent', DateTimeRangeFilter),
     )
+
 
 class SourceAdmin(admin.ModelAdmin):
     list_display = (
@@ -85,8 +96,10 @@ class SourceAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return False
+
     def has_delete_permission(self, request, obj=None):
         return False
+
     def has_create_permission(self, request, obj=None):
         return False
 
