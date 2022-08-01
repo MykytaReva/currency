@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'currency',
     'debug_toolbar',
     'rangefilter',
+    'import_export',
 ]
 
 MIDDLEWARE = [

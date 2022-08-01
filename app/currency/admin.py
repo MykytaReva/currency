@@ -2,9 +2,72 @@ from django.contrib import admin
 from currency.models import Rate, ContactUs, Source
 from rangefilter.filters import DateTimeRangeFilter
 
+from import_export.admin import ImportExportModelAdmin
+from import_export import resources
 
-class RateAdmin(admin.ModelAdmin):
 
+class RateResource(resources.ModelResource):
+
+    class Meta:
+        model = Rate
+        fields = (
+            'id',
+            'base_currency_type',
+            'currency_type',
+            'sale',
+            'buy',
+            'source',
+        )
+        export_order = (
+            'id',
+            'base_currency_type',
+            'currency_type',
+            'sale',
+            'buy',
+            'source',
+        )
+
+
+class ContactUsResource(resources.ModelResource):
+
+    class Meta:
+        model = ContactUs
+        fields = (
+            'id',
+            'email_from',
+            'email_to',
+            'subject',
+            'message',
+        )
+        export_order = (
+            'id',
+            'email_from',
+            'email_to',
+            'subject',
+            'message',
+        )
+
+
+class SourceResource(resources.ModelResource):
+
+    class Meta:
+        model = Source
+        fields = (
+            'id',
+            'source',
+            'name',
+            'theme',
+        )
+        export_order = (
+            'id',
+            'source',
+            'name',
+            'theme',
+        )
+
+
+class RateAdmin(ImportExportModelAdmin):
+    resource_class = RateResource
     list_display = (
         'id',
         'base_currency_type',
@@ -43,7 +106,8 @@ class RateAdmin(admin.ModelAdmin):
     )
 
 
-class ContactUsAdmin(admin.ModelAdmin):
+class ContactUsAdmin(ImportExportModelAdmin):
+    resource_class = ContactUsResource
     list_display = (
         'id',
         'email_from',
@@ -79,7 +143,8 @@ class ContactUsAdmin(admin.ModelAdmin):
     )
 
 
-class SourceAdmin(admin.ModelAdmin):
+class SourceAdmin(ImportExportModelAdmin):
+    resource_class = SourceResource
     list_display = (
         'id',
         'source',
