@@ -5,18 +5,6 @@ from currency.models import Rate, ContactUs, Source
 from django.views import generic
 
 
-from silk.profiling.profiler import silk_profile
-
-
-@silk_profile(name='View Blog Post')
-def post(request, post_id):
-    p = Post.objects.get(pk=post_id)
-    return render(request, 'post.html', {
-        'post': p
-    })
-
-
-
 class IndexView(generic.TemplateView):
     template_name = 'currency/index.html'
 
