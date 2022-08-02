@@ -1,4 +1,7 @@
 from pathlib import Path
+###############
+import os
+###############
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,6 +31,9 @@ INSTALLED_APPS = [
     'django_extensions',
     'currency',
     'debug_toolbar',
+    'rangefilter',
+    'import_export',
+    'silk',
 ]
 
 MIDDLEWARE = [
@@ -40,6 +46,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'silk.middleware.SilkyMiddleware',
 ]
 
 ROOT_URLCONF = 'settings.urls'
@@ -107,8 +114,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-
+##########
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+############
 STATIC_URL = 'static/'
+
+SILKY_PYTHON_PROFILER = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
