@@ -1,5 +1,6 @@
 from django.db import models
 from currency.model_choices import CurrencyType
+from django.conf import settings
 
 
 class Rate(models.Model):
@@ -20,7 +21,7 @@ class Rate(models.Model):
 
 
 class ContactUs(models.Model):
-    email_from = models.EmailField(max_length=60, default='testemail@gmail.com')
+    email_from = models.EmailField(max_length=60, default=settings.EMAIL_HOST_USER)
     email_to = models.EmailField(max_length=60)
     subject = models.CharField(max_length=100)
     message = models.CharField(max_length=7000)
