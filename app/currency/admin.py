@@ -1,5 +1,5 @@
 from django.contrib import admin
-from currency.models import Rate, ContactUs, Source
+from currency.models import Rate, ContactUs, Source, ResponseLog
 from rangefilter.filters import DateTimeRangeFilter
 
 from import_export.admin import ImportExportModelAdmin
@@ -38,6 +38,7 @@ class ContactUsResource(resources.ModelResource):
             'email_to',
             'subject',
             'message',
+            'sent'
         )
         export_order = (
             'id',
@@ -45,6 +46,7 @@ class ContactUsResource(resources.ModelResource):
             'email_to',
             'subject',
             'message',
+            'sent'
         )
 
 
@@ -177,6 +179,56 @@ class SourceAdmin(ImportExportModelAdmin):
     )
 
 
+class ResponseLogResource(resources.ModelResource):
+
+    class Meta:
+        model = ResponseLog
+        fields = (
+            'id',
+            'response_time',
+            'request_method',
+            'query_params',
+            'ip',
+            'path',
+        )
+        export_order = (
+            'id',
+            'response_time',
+            'request_method',
+            'query_params',
+            'ip',
+            'path',
+        )
+
+
+class ResponseLogAdmin(ImportExportModelAdmin):
+    resource_class = ResponseLogResource
+    list_display = (
+        'id',
+        'response_time',
+        'request_method',
+        'query_params',
+        'ip',
+        'path',
+    )
+
+    readonly_fields = (
+        'id',
+        'response_time',
+        'request_method',
+        'query_params',
+        'ip',
+        'path',
+    )
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_create_permission(self, request, obj=None):
+        return False
+
+
 admin.site.register(Rate, RateAdmin)
 admin.site.register(ContactUs, ContactUsAdmin)
 admin.site.register(Source, SourceAdmin)
+admin.site.register(ResponseLog, ResponseLogAdmin)
