@@ -1,17 +1,17 @@
-from faker import Faker
-fake = Faker()
-
-
-def mail_name():
-    nm = fake.first_name()
-    email = fake.email()
-    result = f'{nm} {email}<br/>'
-    return result
-
-
-def generate():
-    lis = []
-    for _ in range(10):
-        lis.append(mail_name())
-    x = ''.join(map(str, lis))
-    return x
+# from time import time
+# from currency.models import ResponseLog
+#
+#
+# def log(self, request):
+#     start = time()
+#     response = self.get_response(request)
+#     end = time()
+#     timer = end - start
+#     rlog = ResponseLog.objects.create(
+#         response_time=timer,
+#         request_method=request.method,
+#         query_params=request.GET,
+#         ip=request.META.get('REMOTE_ADDR'),
+#         path=request.path,
+#     )
+#     return response

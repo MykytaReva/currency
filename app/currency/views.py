@@ -1,8 +1,9 @@
 from django.urls import reverse_lazy
-from currency.forms import RateForm, ContactUsForm, SourceForm
-from currency.models import Rate, ContactUs, Source
-
 from django.views import generic
+from django.core.mail import send_mail
+from django.conf import settings
+from currency.forms import RateForm, ContactUsForm, SourceForm
+from currency.models import Rate, ContactUs, Source, ResponseLog
 
 
 class IndexView(generic.TemplateView):
@@ -19,6 +20,11 @@ class IndexView(generic.TemplateView):
 class RateListView(generic.ListView):
     queryset = Rate.objects.all()
     template_name = 'currency/rate_list.html'
+
+
+class ResponseLogListView(generic.ListView):
+    queryset = ResponseLog.objects.all()
+    template_name = 'currency/responselog_list.html'
 
 
 class RateCreateView(generic.CreateView):
@@ -56,6 +62,22 @@ class ContactUsCreateView(generic.CreateView):
     template_name = 'currency/contactus_create.html'
     form_class = ContactUsForm
     success_url = reverse_lazy('currency:contactus_list')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        subject = self.object.subject
+        message = self.object.message
+        email_to = self.object.email_to
+
+        send_mail(
+            subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            [email_to],
+            fail_silently=False,
+        )
+
+        return response
 
 
 class ContactUsUpdateView(generic.UpdateView):
