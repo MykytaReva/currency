@@ -1,5 +1,5 @@
 from pathlib import Path
-###############
+from django.urls import reverse_lazy
 import os
 ###############
 
@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'rangefilter',
     'import_export',
     'silk',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -55,7 +56,9 @@ ROOT_URLCONF = 'settings.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,3 +142,12 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'testemail@gmail.com'
 EMAIL_HOST_PASSWORD = 'nik222333__'
+
+
+LOGIN_URL = reverse_lazy('login')
+LOGIN_REDIRECT_URL = reverse_lazy('index')
+LOGOUT_REDIRECT_URL = reverse_lazy('index')
+AUTH_USER_MODEL = 'accounts.User'
+
+HTTP_SCHEMA = 'http'
+DOMAIN = 'localhost:8000'

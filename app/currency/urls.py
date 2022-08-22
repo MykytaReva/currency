@@ -4,6 +4,8 @@ from currency import views
 app_name = 'currency'
 
 urlpatterns = [
+    path('No-access/', views.ErrorView.as_view(), name='403error'),
+
     path('rate/list/', views.RateListView.as_view(), name='rate_list'),
     path('rate/create/', views.RateCreateView.as_view(), name='rate_create'),
     path('rate/update/<int:pk>/', views.RateUpdateView.as_view(), name='rate_update'),
@@ -23,5 +25,5 @@ urlpatterns = [
     path('source/details/<int:pk>/', views.SourceDetailView.as_view(), name='source_details'),
 
     path('log/', views.ResponseLogListView.as_view(), name='responselog_list'),
-
+    path('my-profile/', views.UserProfileView.as_view(), name='my_profile'),
 ]

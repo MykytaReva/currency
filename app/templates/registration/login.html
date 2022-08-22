@@ -1,0 +1,15 @@
+{% extends 'currency/base.html' %}
+
+{% block title_block %} Log In {% endblock title_block %}
+
+{% block main_content %}
+    Log In
+
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Log In</button>
+    <a href="{% url 'password_reset' %}"><button type="button">Forgot your password?</button></a>
+    </form>
+
+{% endblock main_content %}

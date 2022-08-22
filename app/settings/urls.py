@@ -5,11 +5,15 @@ from currency import views
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('', views.IndexView.as_view()),
+    path('', views.IndexView.as_view(), name='index'),
+
+    path('accounts/', include('accounts.urls')),
 
     path('currency/', include('currency.urls')),
 
-    path('__debug__/', include('debug_toolbar.urls'))
+    path('__debug__/', include('debug_toolbar.urls')),
+
+    path('auth/', include('django.contrib.auth.urls')),
     ]
 
 urlpatterns += [path('silk/', include('silk.urls', namespace='silk'))]
