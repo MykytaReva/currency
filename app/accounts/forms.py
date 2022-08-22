@@ -26,7 +26,7 @@ class SignUpForm(forms.ModelForm):
         return cleaned_data
 
     def save(self, commit=True):
-        instance: User = super().save(commit=False)
+        instance: get_user_model() = super().save(commit=False)
         instance.username = str(uuid.uuid4())
         instance.is_active = False
         instance.set_password(self.cleaned_data['password1'])
@@ -41,8 +41,8 @@ class SignUpForm(forms.ModelForm):
     def _send_activation_email(self):
         subject = 'Activate your account'
         body = f'''
-        Activation link: {settings.HTTP_SCHEMA}://
-        {settings.DOMAIN}{reverse('accounts:user_activate', args=(self.instance.username, ))}
+        Activation link: {settings.HTTP_SCHEMA}://{settings.DOMAIN}{reverse('accounts:user_activate',
+                                                                            args=(self.instance.username, ))}
         '''
 
         send_mail(
