@@ -4,8 +4,6 @@ from currency import views
 app_name = 'currency'
 
 urlpatterns = [
-    path('No-access/', views.ErrorView.as_view(), name='403error'),
-
     path('rate/list/', views.RateListView.as_view(), name='rate_list'),
     path('rate/create/', views.RateCreateView.as_view(), name='rate_create'),
     path('rate/update/<int:pk>/', views.RateUpdateView.as_view(), name='rate_update'),

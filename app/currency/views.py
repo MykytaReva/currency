@@ -3,14 +3,12 @@ from django.views import generic
 from django.core.mail import send_mail
 from django.conf import settings
 
-from django.core.exceptions import PermissionDenied
-from django.shortcuts import redirect
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from currency.forms import RateForm, ContactUsForm, SourceForm
-from currency.models import Rate, ContactUs, Source, ResponseLog
+from currency.models import Rate, ContactUs, ResponseLog, Source
 
 
 class IndexView(generic.TemplateView):
@@ -44,7 +42,7 @@ class ResponseLogListView(LoginRequiredMixin, generic.ListView):
 
 
 class RateListView(LoginRequiredMixin, generic.ListView):
-    queryset = Rate.objects.all()
+    queryset = Rate.objects.all().select_related('source')
     template_name = 'currency/rate_list.html'
 
 
@@ -53,10 +51,6 @@ class RateCreateView(generic.CreateView):
     template_name = 'currency/rate_create.html'
     form_class = RateForm
     success_url = reverse_lazy('currency:rate_list')
-
-
-class ErrorView(generic.TemplateView):
-    template_name = 'currency/403_csrf.html'
 
 
 class RateUpdateView(UserPassesTestMixin, generic.UpdateView):
@@ -68,11 +62,6 @@ class RateUpdateView(UserPassesTestMixin, generic.UpdateView):
     def test_func(self):
         return self.request.user.is_superuser
 
-    def handle_no_permission(self):
-        if self.raise_exception:
-            raise PermissionDenied(self.get_permission_denied_message())
-        return redirect(reverse_lazy('currency:403error'))
-
 
 class RateDeleteView(UserPassesTestMixin, generic.DeleteView):
     queryset = Rate.objects.all()
@@ -81,11 +70,6 @@ class RateDeleteView(UserPassesTestMixin, generic.DeleteView):
 
     def test_func(self):
         return self.request.user.is_superuser
-
-    def handle_no_permission(self):
-        if self.raise_exception:
-            raise PermissionDenied(self.get_permission_denied_message())
-        return redirect(reverse_lazy('currency:403error'))
 
 
 class RateDetailView(generic.DetailView):

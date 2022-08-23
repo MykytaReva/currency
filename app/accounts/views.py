@@ -13,6 +13,7 @@ class SignUpView(generic.CreateView):
 
 
 class UserActivateView(generic.RedirectView):
+
     pattern_name = 'index'
 
     def get(self, request, *args, **kwargs):

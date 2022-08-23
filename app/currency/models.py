@@ -16,7 +16,7 @@ class Rate(models.Model):
     )
     sale = models.DecimalField(max_digits=10, decimal_places=2)
     buy = models.DecimalField(max_digits=10, decimal_places=2)
-    source = models.CharField(max_length=64)
+    source = models.ForeignKey('currency.Source', on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
 
 
@@ -29,10 +29,8 @@ class ContactUs(models.Model):
 
 
 class Source(models.Model):
-    source = models.CharField(max_length=255)
-    name = models.CharField(max_length=64)
-    theme = models.CharField(max_length=255)
-    price = models.FloatField()
+    url = models.URLField()
+    name = models.CharField(max_length=256)
 
 
 class ResponseLog(models.Model):
