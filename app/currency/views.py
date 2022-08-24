@@ -2,14 +2,20 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.core.mail import send_mail
 from django.conf import settings
+
+
+from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
 from currency.forms import RateForm, ContactUsForm, SourceForm
-from currency.models import Rate, ContactUs, Source, ResponseLog
+from currency.models import Rate, ContactUs, ResponseLog, Source
 
 
 class IndexView(generic.TemplateView):
     template_name = 'currency/index.html'
 
     def get_context_data(self, *args, **kwargs):
+        # breakpoint()
         context = super().get_context_data(**kwargs)
         context['rate_count'] = Rate.objects.count()
         context['contactus_count'] = ContactUs.objects.count()
@@ -17,14 +23,27 @@ class IndexView(generic.TemplateView):
         return context
 
 
-class RateListView(generic.ListView):
-    queryset = Rate.objects.all()
-    template_name = 'currency/rate_list.html'
+class UserProfileView(LoginRequiredMixin, generic.UpdateView):
+    queryset = get_user_model().objects.all()
+    template_name = 'currency/my_profile.html'
+    fields = (
+        'first_name',
+        'last_name',
+    )
+    success_url = reverse_lazy('index')
+
+    def get_object(self, queryset=None):
+        return self.request.user
 
 
-class ResponseLogListView(generic.ListView):
+class ResponseLogListView(LoginRequiredMixin, generic.ListView):
     queryset = ResponseLog.objects.all()
     template_name = 'currency/responselog_list.html'
+
+
+class RateListView(LoginRequiredMixin, generic.ListView):
+    queryset = Rate.objects.all().select_related('source')
+    template_name = 'currency/rate_list.html'
 
 
 class RateCreateView(generic.CreateView):
@@ -34,17 +53,23 @@ class RateCreateView(generic.CreateView):
     success_url = reverse_lazy('currency:rate_list')
 
 
-class RateUpdateView(generic.UpdateView):
+class RateUpdateView(UserPassesTestMixin, generic.UpdateView):
     queryset = Rate.objects.all()
     template_name = 'currency/rate_update.html'
     form_class = RateForm
     success_url = reverse_lazy('currency:rate_list')
 
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class RateDeleteView(generic.DeleteView):
+
+class RateDeleteView(UserPassesTestMixin, generic.DeleteView):
     queryset = Rate.objects.all()
     template_name = 'currency/rate_delete.html'
     success_url = reverse_lazy('currency:rate_list')
+
+    def test_func(self):
+        return self.request.user.is_superuser
 
 
 class RateDetailView(generic.DetailView):
@@ -52,7 +77,7 @@ class RateDetailView(generic.DetailView):
     template_name = 'currency/rate_details.html'
 
 
-class ContactUsListView(generic.ListView):
+class ContactUsListView(LoginRequiredMixin, generic.ListView):
     queryset = ContactUs.objects.all()
     template_name = 'currency/contactus.html'
 
@@ -80,7 +105,7 @@ class ContactUsCreateView(generic.CreateView):
         return response
 
 
-class ContactUsUpdateView(generic.UpdateView):
+class ContactUsUpdateView(LoginRequiredMixin, generic.UpdateView):
     queryset = ContactUs.objects.all()
     template_name = 'currency/contactus_update.html'
     form_class = ContactUsForm
@@ -98,13 +123,13 @@ class ContactUsDetailView(generic.DetailView):
     template_name = 'currency/contactus_details.html'
 
 
-class SourceListView(generic.ListView):
+class SourceListView(LoginRequiredMixin, generic.ListView):
     queryset = Source.objects.all()
     template_name = 'currency/source_list.html'
 
 
 class SourceCreateView(generic.CreateView):
-    querysey = Source.objects.all()
+    queryset = Source.objects.all()
     template_name = 'currency/source_create.html'
     form_class = SourceForm
     success_url = reverse_lazy('currency:source_list')

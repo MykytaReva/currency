@@ -3,12 +3,16 @@
 {% block title_block %}Rate List{% endblock title_block %}
 
 {% block main_content %}
-    <div><a href="{% url 'currency:rate_create' %}"> Create new rate</a></div>
+
     <table>
+    <tr>
+        <th colspan="7"><a href="{% url 'currency:rate_create' %}"> Create new rate</a></th>
+    </tr>
     <tr>
         <th>Id</th>
         <th>Sale</th>
         <th>Buy</th>
+        <th>Bank</th>
         <th colspan="3">Actions</th>
     </tr>
         {% for rate in rate_list %}
@@ -16,6 +20,7 @@
             <td style="text-align: center">{{ rate.id }}</td>
             <td style="text-align: center">{{ rate.sale }}</td>
             <td style="text-align: center">{{ rate.buy }}</td>
+            <td style="text-align: center">{{ rate.source.name }}</td>
             <td><a href="{% url 'currency:rate_details' pk=rate.id %}">View details</a></td>
             <td><a href="{% url 'currency:rate_update' pk=rate.id %}">Edit</a></td>
             <td><a href="{% url 'currency:rate_delete' pk=rate.id %}">Delete</a></td>

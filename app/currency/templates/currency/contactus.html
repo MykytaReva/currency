@@ -3,8 +3,10 @@
 {% block title_block %}Contact List{% endblock title_block %}
 
 {% block main_content %}
-    <div><a href="{% url 'currency:contactus_create' %}">Create new contact</a> </div>
     <table>
+        <tr>
+            <th colspan="6"><a href="{% url 'currency:contactus_create' %}">Create new contact</a></th>
+        </tr>
         <tr>
             <th>Id</th>
             <th>Sender</th>

@@ -29,8 +29,7 @@ class SourceForm(forms.ModelForm):
     class Meta:
         model = Source
         fields = (
-            'source',
+            'url',
             'name',
-            'theme',
-            'price',
+
         )

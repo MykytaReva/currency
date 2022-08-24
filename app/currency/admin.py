@@ -1,5 +1,6 @@
 from django.contrib import admin
 from currency.models import Rate, ContactUs, Source, ResponseLog
+
 from rangefilter.filters import DateTimeRangeFilter
 
 from import_export.admin import ImportExportModelAdmin
@@ -56,15 +57,15 @@ class SourceResource(resources.ModelResource):
         model = Source
         fields = (
             'id',
-            'source',
+            'url',
             'name',
-            'theme',
+
         )
         export_order = (
             'id',
-            'source',
+            'url',
             'name',
-            'theme',
+
         )
 
 
@@ -89,8 +90,8 @@ class RateAdmin(ImportExportModelAdmin):
     def has_add_permission(self, request):
         return False
 
-    def has_delete_permission(self, request, obj=None):
-        return False
+    # def has_delete_permission(self, request, obj=None):
+    #     return False
 
     def has_create_permission(self, request, obj=None):
         return False
@@ -149,16 +150,13 @@ class SourceAdmin(ImportExportModelAdmin):
     resource_class = SourceResource
     list_display = (
         'id',
-        'source',
+        'url',
         'name',
-        'theme',
-        'price',
     )
     readonly_fields = (
-        'source',
+        'url',
         'name',
-        'theme',
-        'price',
+
     )
 
     def has_add_permission(self, request):
@@ -172,10 +170,9 @@ class SourceAdmin(ImportExportModelAdmin):
 
     search_fields = (
         'id',
-        'source',
+        'url',
         'name',
-        'theme',
-        'price',
+
     )
 
 
