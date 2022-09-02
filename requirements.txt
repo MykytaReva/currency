@@ -8,6 +8,9 @@ django-admin-rangefilter==0.8.5
 django-import-export==2.8.0
 django-silk==5.0.1
 
+#celery
+celery==5.2.7
+
 #dev
 django-debug-toolbar==3.5.0
 

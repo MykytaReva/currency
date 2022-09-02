@@ -19,6 +19,9 @@ class Rate(models.Model):
     source = models.ForeignKey('currency.Source', on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        verbose_name_plural = "Rate"
+
 
 class ContactUs(models.Model):
     email_from = models.EmailField(max_length=60, default=settings.EMAIL_HOST_USER)
@@ -27,10 +30,17 @@ class ContactUs(models.Model):
     message = models.CharField(max_length=7000)
     sent = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        verbose_name_plural = "ContactUs"
+
 
 class Source(models.Model):
     url = models.URLField()
     name = models.CharField(max_length=256)
+    code_name = models.CharField(max_length=20, unique=True)
+
+    class Meta:
+        verbose_name_plural = "Source"
 
 
 class ResponseLog(models.Model):
@@ -39,3 +49,6 @@ class ResponseLog(models.Model):
     query_params = models.CharField(max_length=64)
     ip = models.CharField(max_length=64)
     path = models.CharField(max_length=122)
+
+    class Meta:
+        verbose_name_plural = "ResponseLog"

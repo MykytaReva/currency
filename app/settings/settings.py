@@ -1,3 +1,4 @@
+from celery.schedules import crontab
 from pathlib import Path
 from django.urls import reverse_lazy
 import os
@@ -151,3 +152,22 @@ AUTH_USER_MODEL = 'accounts.User'
 
 HTTP_SCHEMA = 'http'
 DOMAIN = 'localhost:8000'
+
+CELERY_BEAT_SCHEDULE = {
+    'slow_func': {
+        'task': 'currency.tasks.slow_func',
+        'schedule': crontab(minute='*/1'),
+    },
+    'parse_privatbank': {
+        'task': 'currency.tasks.parse_privatbank',
+        'schedule': crontab(minute='*/1')
+    },
+    'parse_monobank': {
+        'task': 'currency.tasks.parse_monobank',
+        'schedule': crontab(minute='*/1')
+    },
+    'parse_vkurse': {
+        'task': 'currency.tasks.parse_vkurse',
+        'schedule': crontab(minute='*/1')
+    }
+}

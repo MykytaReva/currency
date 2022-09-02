@@ -10,6 +10,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from currency.forms import RateForm, ContactUsForm, SourceForm
 from currency.models import Rate, ContactUs, ResponseLog, Source
 
+from currency.tasks import send_email_contact_us
+
 
 class IndexView(generic.TemplateView):
     template_name = 'currency/index.html'
@@ -90,6 +92,11 @@ class ContactUsCreateView(generic.CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
+        send_email_contact_us.delay(self.object.subject, self.object.message, self.object.email_to)
+
+        return response
+
+    def _send_email_contact_us(self):
         subject = self.object.subject
         message = self.object.message
         email_to = self.object.email_to
@@ -102,7 +109,6 @@ class ContactUsCreateView(generic.CreateView):
             fail_silently=False,
         )
 
-        return response
 
 
 class ContactUsUpdateView(LoginRequiredMixin, generic.UpdateView):
