@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-zr9ak_ses+9+75!ho4whw7b$h_=5wtn_!8l=cq6xw#bg#jwnzg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -124,7 +124,11 @@ PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 ############
 STATIC_URL = 'static/'
-
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+MEDIA_URL = 'media/'
+MEDIA_ROOT =  BASE_DIR / '..' / 'static_content' / 'media'
 SILKY_PYTHON_PROFILER = True
 
 # Default primary key field type
@@ -168,6 +172,14 @@ CELERY_BEAT_SCHEDULE = {
     },
     'parse_vkurse': {
         'task': 'currency.tasks.parse_vkurse',
+        'schedule': crontab(minute='*/1')
+    },
+    'parse_oschadbank': {
+        'task': 'currency.tasks.parse_oschadbank',
+        'schedule': crontab(minute='*/1')
+    },
+    'parse_alfabank': {
+        'task': 'currency.tasks.parse_alfabank',
         'schedule': crontab(minute='*/1')
     }
 }

@@ -23,5 +23,4 @@ urlpatterns = [
     path('source/details/<int:pk>/', views.SourceDetailView.as_view(), name='source_details'),
 
     path('log/', views.ResponseLogListView.as_view(), name='responselog_list'),
-    path('my-profile/', views.UserProfileView.as_view(), name='my_profile'),
 ]

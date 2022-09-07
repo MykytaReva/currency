@@ -1,13 +1,16 @@
 from celery import shared_task
 from django.core.mail import send_mail
+
+
 from settings import settings
 import requests
-from decimal import Decimal
+from bs4 import BeautifulSoup
 
-from currency.utils import to_decimal
+from currency.utils import to_decimal, get_oschadbank, get_alfabank
 
 from currency import consts
 from currency import model_choices as mch
+
 
 @shared_task
 def slow_func():
@@ -141,6 +144,7 @@ def parse_monobank():
 @shared_task
 def parse_vkurse():
     from currency.models import Rate, Source
+    link = 'http://vkurse.dp.ua'
     url = 'http://vkurse.dp.ua/course.json'
     response = requests.get(url)
     response.raise_for_status()
@@ -153,7 +157,7 @@ def parse_vkurse():
 
     source = Source.objects.get_or_create(
         code_name=consts.CODE_NAME_VKURSE,
-        defaults={'url': url, 'name': 'Vkurse'}
+        defaults={'url': link, 'name': 'Vkurse'}
     )[0]
 
     for rate_data in response_data:
@@ -180,6 +184,105 @@ def parse_vkurse():
                 latest_rate.buy != buy:
             Rate.objects.create(
                 base_currency_type = base_currency_type,
+                currency_type=currency_type,
+                buy=buy,
+                sale=sale,
+                source=source,
+            )
+
+@shared_task
+def parse_oschadbank():
+    from currency.models import Source, Rate
+
+    link = 'https://www.oschadbank.ua/currency-rate'
+    url = requests.get(link)
+
+    rate_oschad = get_oschadbank(url)
+
+    currency_type_mapper = {
+        'UAH': mch.CurrencyType.CURRENCY_TYPE_UAH,
+        'USD': mch.CurrencyType.CURRENCY_TYPE_USD,
+        'EUR': mch.CurrencyType.CURRENCY_TYPE_UER,
+    }
+    source = Source.objects.get_or_create(
+        code_name=consts.CODE_NAME_OSCHADBANK,
+        defaults={'url': link, 'name': 'OschadBank'}
+    )[0]
+
+    for rate_data in rate_oschad:
+        currency_type = rate_data
+        base_currency_type = mch.CurrencyType.CURRENCY_TYPE_UAH
+
+        if currency_type not in currency_type_mapper:
+            continue
+
+        buy = to_decimal(rate_oschad[rate_data]['Buy'])
+        sale = to_decimal(rate_oschad[rate_data]['Sale'])
+
+        try:
+            latest_rate = Rate.objects.filter(
+                currency_type=currency_type,
+                base_currency_type=base_currency_type,
+                source=source
+            ).latest('created')
+        except Rate.DoesNotExist:
+            latest_rate = None
+
+        if latest_rate is None or \
+                latest_rate.sale != sale or \
+                latest_rate.buy != buy:
+            Rate.objects.create(
+                base_currency_type=base_currency_type,
+                currency_type=currency_type,
+                buy=buy,
+                sale=sale,
+                source=source,
+            )
+
+@shared_task
+def parse_alfabank():
+    from currency.models import Rate, Source
+
+    link = 'https://alfabank.ua/currency-exchange'
+    url = requests.get(link)
+
+    rate_alfabank = get_alfabank(url)
+
+    currency_type_mapper = {
+        'UAH': mch.CurrencyType.CURRENCY_TYPE_UAH,
+        'USD': mch.CurrencyType.CURRENCY_TYPE_USD,
+        'EUR': mch.CurrencyType.CURRENCY_TYPE_UER,
+    }
+
+    source = Source.objects.get_or_create(
+        code_name=consts.CODE_NAME_ALFABANK,
+        defaults={'url': link, 'name': 'AlfaBank'}
+    )[0]
+
+    for rate_data in rate_alfabank:
+        currency_type = rate_data
+        base_currency_type = mch.CurrencyType.CURRENCY_TYPE_UAH
+
+        if currency_type not in currency_type_mapper:
+            continue
+
+        buy = to_decimal(rate_alfabank[rate_data]['Buy'])
+        sale = to_decimal(rate_alfabank[rate_data]['Sale'])
+
+        try:
+            latest_rate = Rate.objects.filter(
+                currency_type=currency_type,
+                base_currency_type=base_currency_type,
+                source=source
+            ).latest('created')
+        except Rate.DoesNotExist:
+            latest_rate = None
+
+        if latest_rate is None or \
+                latest_rate.sale != sale or \
+                latest_rate.buy != buy:
+            Rate.objects.create(
+                base_currency_type=base_currency_type,
                 currency_type=currency_type,
                 buy=buy,
                 sale=sale,

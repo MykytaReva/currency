@@ -1,33 +1,48 @@
 {% extends 'currency/base.html' %}
-
+{% load static %}
 {% block title_block %}Rate List{% endblock title_block %}
 
 {% block main_content %}
-
-    <table>
-    <tr>
-        <th colspan="7"><a href="{% url 'currency:rate_create' %}"> Create new rate</a></th>
-    </tr>
-    <tr>
-        <th>Id</th>
-        <th>Sale</th>
-        <th>Buy</th>
-        <th>Bank</th>
-        <th>Currency</th>
-        <th colspan="3">Actions</th>
-    </tr>
-        {% for rate in rate_list %}
+    <div>
+        <img src="{% static "img/privat.png" %}" height="100" width="100">
+    </div>
+    <div class="container mt-3">
+        <table class="table table-striped">
+        <thead>
         <tr>
-            <td style="text-align: center">{{ rate.id }}</td>
-            <td style="text-align: center">{{ rate.sale }}</td>
-            <td style="text-align: center">{{ rate.buy }}</td>
-            <td style="text-align: center">{{ rate.source.name }}</td>
-            <td style="text-align: center">{{ rate.base_currency_type}} - {{rate.currency_type}}</td>
-            <td><a href="{% url 'currency:rate_details' pk=rate.id %}">View details</a></td>
-            <td><a href="{% url 'currency:rate_update' pk=rate.id %}">Edit</a></td>
-            <td><a href="{% url 'currency:rate_delete' pk=rate.id %}">Delete</a></td>
+            <th><a href="{% url 'currency:rate_create' %}"> Create new rate</a></th>
         </tr>
-        {% endfor%}
-    </table>
-
+        <tr>
+            <th style="text-align: center">Id</th>
+            <th style="text-align: center">Sale</th>
+            <th style="text-align: center">Buy</th>
+            <th style="text-align: center">Bank</th>
+            <th style="text-align: center">Currency</th>
+            <th style="text-align: center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for rate in rate_list %}
+            <tr>
+                <td style="text-align: center">{{ rate.id }}</td>
+                <td style="text-align: center">{{ rate.sale }}</td>
+                <td style="text-align: center">{{ rate.buy }}</td>
+                <td style="text-align: center">{{ rate.source.name }}</td>
+                <td style="text-align: center">{{ rate.base_currency_type}} - {{rate.currency_type}}</td>
+                <td>
+                    <a class="btn btn-secondary"
+                       role="button"
+                       href="{% url 'currency:rate_details' pk=rate.id %}">View details</a>
+                    <a class="btn btn-secondary"
+                       role="button"
+                       href="{% url 'currency:rate_update' pk=rate.id %}">Edit</a>
+                    <a class="btn btn-secondary"
+                       role="button"
+                       href="{% url 'currency:rate_delete' pk=rate.id %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor%}
+        </tbody>
+        </table>
+    </div>
 {% endblock main_content %}

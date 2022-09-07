@@ -25,19 +25,6 @@ class IndexView(generic.TemplateView):
         return context
 
 
-class UserProfileView(LoginRequiredMixin, generic.UpdateView):
-    queryset = get_user_model().objects.all()
-    template_name = 'currency/my_profile.html'
-    fields = (
-        'first_name',
-        'last_name',
-    )
-    success_url = reverse_lazy('index')
-
-    def get_object(self, queryset=None):
-        return self.request.user
-
-
 class ResponseLogListView(LoginRequiredMixin, generic.ListView):
     queryset = ResponseLog.objects.all()
     template_name = 'currency/responselog_list.html'
