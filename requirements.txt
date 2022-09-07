@@ -11,6 +11,10 @@ django-silk==5.0.1
 #celery
 celery==5.2.7
 
+#parser
+beautifulsoup4==4.11.1
+
+
 #dev
 django-debug-toolbar==3.5.0
 

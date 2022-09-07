@@ -1,23 +1,15 @@
 from celery import shared_task
 from django.core.mail import send_mail
 
-
 from settings import settings
 import requests
-from bs4 import BeautifulSoup
 
-from currency.utils import to_decimal, get_oschadbank, get_alfabank
+from currency.utils import to_decimal, get_oschadbank,\
+    get_alfabank, get_universalbank
 
 from currency import consts
 from currency import model_choices as mch
 
-
-@shared_task
-def slow_func():
-    from time import sleep
-    print('start')
-    sleep(5)
-    print('end')
 
 @shared_task
 def send_email_contact_us(subject, message, email_to):
@@ -32,6 +24,7 @@ def send_email_contact_us(subject, message, email_to):
         [email_to_to],
         fail_silently=False,
     )
+
 
 @shared_task
 def parse_privatbank():
@@ -89,6 +82,7 @@ def parse_privatbank():
                 source=source,
             )
 
+
 @shared_task
 def parse_monobank():
     from currency.models import Rate, Source
@@ -141,6 +135,7 @@ def parse_monobank():
                 source=source,
             )
 
+
 @shared_task
 def parse_vkurse():
     from currency.models import Rate, Source
@@ -183,12 +178,13 @@ def parse_vkurse():
                 latest_rate.sale != sale or \
                 latest_rate.buy != buy:
             Rate.objects.create(
-                base_currency_type = base_currency_type,
+                base_currency_type=base_currency_type,
                 currency_type=currency_type,
                 buy=buy,
                 sale=sale,
                 source=source,
             )
+
 
 @shared_task
 def parse_oschadbank():
@@ -239,6 +235,7 @@ def parse_oschadbank():
                 source=source,
             )
 
+
 @shared_task
 def parse_alfabank():
     from currency.models import Rate, Source
@@ -268,6 +265,55 @@ def parse_alfabank():
 
         buy = to_decimal(rate_alfabank[rate_data]['Buy'])
         sale = to_decimal(rate_alfabank[rate_data]['Sale'])
+
+        try:
+            latest_rate = Rate.objects.filter(
+                currency_type=currency_type,
+                base_currency_type=base_currency_type,
+                source=source
+            ).latest('created')
+        except Rate.DoesNotExist:
+            latest_rate = None
+
+        if latest_rate is None or \
+                latest_rate.sale != sale or \
+                latest_rate.buy != buy:
+            Rate.objects.create(
+                base_currency_type=base_currency_type,
+                currency_type=currency_type,
+                buy=buy,
+                sale=sale,
+                source=source,
+            )
+
+
+@shared_task
+def parse_universalbank():
+    from currency.models import Rate, Source
+
+    link = 'https://www.universalbank.com.ua/'
+    url = requests.get(link)
+
+    rate_universalbank = get_universalbank(url)
+
+    currency_type_mapper = {
+        'USD': mch.CurrencyType.CURRENCY_TYPE_USD,
+        'EUR': mch.CurrencyType.CURRENCY_TYPE_UER,
+    }
+    source = Source.objects.get_or_create(
+        code_name=consts.CODE_NAME_UNIVERSALBANK,
+        defaults={'url': link, 'name': 'UniversalBank'}
+    )[0]
+
+    for rate_data in rate_universalbank:
+        currency_type = rate_data
+        base_currency_type = mch.CurrencyType.CURRENCY_TYPE_UAH
+
+        if currency_type not in currency_type_mapper:
+            continue
+
+        buy = to_decimal(rate_universalbank[rate_data]['Buy'])
+        sale = to_decimal(rate_universalbank[rate_data]['Sale'])
 
         try:
             latest_rate = Rate.objects.filter(

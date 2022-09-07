@@ -128,7 +128,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 MEDIA_URL = 'media/'
-MEDIA_ROOT =  BASE_DIR / '..' / 'static_content' / 'media'
+MEDIA_ROOT = BASE_DIR / '..' / 'static_content' / 'media'
 SILKY_PYTHON_PROFILER = True
 
 # Default primary key field type
@@ -158,10 +158,6 @@ HTTP_SCHEMA = 'http'
 DOMAIN = 'localhost:8000'
 
 CELERY_BEAT_SCHEDULE = {
-    'slow_func': {
-        'task': 'currency.tasks.slow_func',
-        'schedule': crontab(minute='*/1'),
-    },
     'parse_privatbank': {
         'task': 'currency.tasks.parse_privatbank',
         'schedule': crontab(minute='*/1')
@@ -180,6 +176,10 @@ CELERY_BEAT_SCHEDULE = {
     },
     'parse_alfabank': {
         'task': 'currency.tasks.parse_alfabank',
+        'schedule': crontab(minute='*/1')
+    },
+    'parse_universalbank': {
+        'task': 'currency.tasks.parse_universalbank',
         'schedule': crontab(minute='*/1')
     }
 }
