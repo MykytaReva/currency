@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'silk',
     'accounts',
     'crispy_forms',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

@@ -5,8 +5,11 @@ from django.conf import settings
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
+from currency.filters import RateFilter
 from currency.forms import RateForm, ContactUsForm, SourceForm
 from currency.models import Rate, ContactUs, ResponseLog, Source
+from django_filters.views import FilterView
+
 
 from currency.tasks import send_email_contact_us
 
@@ -28,9 +31,30 @@ class ResponseLogListView(LoginRequiredMixin, generic.ListView):
     template_name = 'currency/responselog_list.html'
 
 
-class RateListView(LoginRequiredMixin, generic.ListView):
+class RateListView(FilterView, LoginRequiredMixin, generic.ListView):
     queryset = Rate.objects.all().select_related('source')
     template_name = 'currency/rate_list.html'
+    paginate_by = 10
+    filterset_class = RateFilter
+    page_size_option = ['5', '10', '15', '20']
+
+    def get_context_data(self, *args, **kwargs):
+        context: dict = super().get_context_data(*args, **kwargs)
+        filters_params = self.request.GET.copy()
+        if self.page_kwarg in filters_params:
+            del filters_params['page']
+
+        context['filters_params'] = filters_params.urlencode()
+        context['page_size'] = self.get_paginate_by()
+        context['page_size_option'] = self.page_size_option
+        return context
+
+    def get_paginate_by(self, queryset=None):
+        if 'page_size' in self.request.GET:
+            paginate_by = self.request.GET['page_size']
+        else:
+            paginate_by = self.paginate_by
+        return paginate_by
 
 
 class RateCreateView(generic.CreateView):
@@ -67,6 +91,7 @@ class RateDetailView(generic.DetailView):
 class ContactUsListView(LoginRequiredMixin, generic.ListView):
     queryset = ContactUs.objects.all()
     template_name = 'currency/contactus.html'
+    paginate_by = 10
 
 
 class ContactUsCreateView(generic.CreateView):

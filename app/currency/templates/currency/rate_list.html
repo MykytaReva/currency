@@ -3,7 +3,21 @@
 {% block title_block %}Rate List{% endblock title_block %}
 
 {% block main_content %}
-
+    {% load crispy_forms_tags %}
+    <p>
+        <form method="get">
+            {{ filter.form.as_p}}
+            <label for="id-page_size">Items per page</label>
+            <select name="page_size" id="id-page_size">
+                {% for page_size_option in page_size_option %}
+                    <option value="{{ page_size_option }}"{% if page_size == page_size_option %}selected{% endif %}>
+                        {{ page_size_option }}
+                    </option>
+                {% endfor %}
+            </select>
+            <button type="submit">Filter</button>
+        </form>
+    </p>
     <div class="container">
         <div class="row align-items-center">
 
@@ -61,4 +75,6 @@
             </table>
          </div>
     </div>
+</div>
+    {% include 'parts/pagination.html' %}
 {% endblock main_content %}

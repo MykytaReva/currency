@@ -8,6 +8,7 @@ django-admin-rangefilter==0.8.5
 django-import-export==2.8.0
 django-silk==5.0.1
 django-crispy-forms==1.14.0
+django-filter==22.1
 
 #celery
 celery==5.2.7
