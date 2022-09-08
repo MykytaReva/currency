@@ -3,10 +3,11 @@
 
 {% block main_content %}
     Create New Source
+    {% load crispy_forms_tags %}
     <form method="post">
     {% csrf_token %}
-    {{ form.as_p}}
-    <button type="submit">Save</button>
+    {{form|crispy}}
+    <button type="submit" class="btn btn-success"Save</button>
     </form>
 
 

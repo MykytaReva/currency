@@ -3,26 +3,37 @@
 {% block title_block %}Contact List{% endblock title_block %}
 
 {% block main_content %}
-    <table>
-        <tr>
-            <th colspan="6"><a href="{% url 'currency:contactus_create' %}">Create new contact</a></th>
-        </tr>
-        <tr>
-            <th>Id</th>
-            <th>Sender</th>
-            <th>Recipient</th>
-            <th colspan="3"> Actions</th>
-        </tr>
-        {% for us in contactus_list %}
-        <tr>
-            <td style="text-align: center">{{ us.id }}</td>
-            <td style="text-align: center">{{ us.email_from }}</td>
-            <td style="text-align: center">{{ us.email_to }}</td>
-            <td><a href="{% url 'currency:contactus_details' pk=us.id %}">View details</a></td>
-            <td><a href="{% url 'currency:contactus_update' pk=us.id %}">Update</a></td>
-            <td><a href="{% url 'currency:contactus_delete' pk=us.id %}">Delete</a></td>
-        </tr>
-        {% endfor %}
-    </table>
-
+    <div class="container mt-3">
+        <table class="table table-hover">
+            <tr>
+                <th colspan="6"><a href="{% url 'currency:contactus_create' %}">Create new contact</a></th>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <th>Sender</th>
+                <th>Recipient</th>
+                <th colspan="3"> Actions</th>
+            </tr>
+            {% for us in contactus_list %}
+            <tr>
+                <td style="text-align: center">{{ us.id }}</td>
+                <td style="text-align: center">{{ us.email_from }}</td>
+                <td style="text-align: center">{{ us.email_to }}</td>
+                <td>
+                <div class="btn-group">
+                    <a class="btn btn-secondary"
+                       role="button"
+                       href="{% url 'currency:contactus_details' pk=us.id %}">View details</a>
+                    <a class="btn btn-secondary"
+                       role="button"
+                       href="{% url 'currency:contactus_update' pk=us.id %}">Update</a>
+                    <a class="btn btn-secondary"
+                       role="button"
+                       href="{% url 'currency:contactus_delete' pk=us.id %}">Delete</a>
+                </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock main_content %}

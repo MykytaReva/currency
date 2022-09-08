@@ -5,12 +5,13 @@
 {% block main_content %}
     Delete Source
     <div>Do you want to delete source wih ID {{ source.id }}?</div>
+    {% load crispy_forms_tags %}
     <form method="post">
     {% csrf_token %}
-    <button type="submit">Yes</button>
+    <button type="submit" class="btn btn-success">Yes</button>
     </form>
     <a href="{% url 'currency:source_list' %}">
-        <button>No</button>
+        <button class="btn btn-secondary">No</button>
     </a>
 
 {% endblock main_content %}

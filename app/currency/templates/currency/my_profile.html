@@ -7,10 +7,13 @@
     My Profile
     {% if request.user.avatar %}
         <img src="{{ request.user.avatar.url }}" height="100" width="100">
+    {% else %}
+        <img src="/media/icons/anonymous.png" height="100" width="100">
     {% endif %}
+    {% load crispy_forms_tags %}
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{form|crispy}}
         <button type="reset" class="btn btn-secondary">Reset</button>
         <button type="submit" class="btn btn-success">Save</button>
     </form>

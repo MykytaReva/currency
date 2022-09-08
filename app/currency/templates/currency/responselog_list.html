@@ -3,25 +3,27 @@
 {% block title_block %}Response Log{% endblock title_block %}
 
 {% block main_content %}
-    <table>
-    <tr>
-        <th>Id</th>
-        <th>response_time</th>
-        <th>request_method</th>
-        <th>query_params</th>
-        <th>ip</th>
-        <th>path</th>
-    </tr>
-        {% for log in responselog_list %}
+    <div class="container mt-3">
+        <table class="table table-hover">
         <tr>
-            <td style="text-align: center">{{ log.id }}</td>
-            <td style="text-align: center">{{ log.response_time }}</td>
-            <td style="text-align: center">{{ log.request_method }}</td>
-            <td style="text-align: center">{{ log.query_params }}</td>
-            <td style="text-align: center">{{ log.ip }}</td>
-            <td style="text-align: center">{{ log.path }}</td>
+            <th>Id</th>
+            <th>response_time</th>
+            <th>request_method</th>
+            <th>query_params</th>
+            <th>ip</th>
+            <th>path</th>
         </tr>
-        {% endfor%}
-    </table>
+            {% for log in responselog_list %}
+            <tr>
+                <td style="text-align: center">{{ log.id }}</td>
+                <td style="text-align: center">{{ log.response_time }}</td>
+                <td style="text-align: center">{{ log.request_method }}</td>
+                <td style="text-align: center">{{ log.query_params }}</td>
+                <td style="text-align: center">{{ log.ip }}</td>
+                <td style="text-align: center">{{ log.path }}</td>
+            </tr>
+            {% endfor%}
+        </table>
+    </div>
 
 {% endblock main_content %}

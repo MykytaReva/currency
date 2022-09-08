@@ -3,24 +3,25 @@
 {% block title_block %} Details {% endblock title_block %}
 
 {% block main_content %}
-    <table>
-    <tr>
-        <th colspan="5">Contact Details</th>
-    </tr>
-    <tr>
-        <th>Id</th>
-        <th>Sender</th>
-        <th>Recipient</th>
-        <th>Subject</th>
-        <th>Message</th>
-    </tr>
-    <tr>
-        <td>{{ contactus.id }}</td>
-        <td>{{ contactus.email_from }}</td>
-        <td>{{ contactus.email_to }}</td>
-        <td>{{ contactus.subject }}</td>
-        <td>{{ contactus.message }}</td>
-    </tr>
-    </table>
-
+    <div class="container mt-3">
+            <table class="table table-hover">
+        <tr>
+            <th colspan="5">Contact Details</th>
+        </tr>
+        <tr>
+            <th>Id</th>
+            <th>Sender</th>
+            <th>Recipient</th>
+            <th>Subject</th>
+            <th>Message</th>
+        </tr>
+        <tr>
+            <td>{{ contactus.id }}</td>
+            <td>{{ contactus.email_from }}</td>
+            <td>{{ contactus.email_to }}</td>
+            <td>{{ contactus.subject }}</td>
+            <td>{{ contactus.message }}</td>
+        </tr>
+        </table>
+    </div>
 {% endblock main_content %}

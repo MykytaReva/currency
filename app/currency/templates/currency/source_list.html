@@ -3,27 +3,38 @@
 {% block title_block %} Source List {%  endblock title_block %}
 
 {% block main_content %}
-    <table>
-    <tr>
-        <th colspan="6"><a href="{% url 'currency:source_create' %}">Create new source</a></th>
-    </th>
-    </tr>
-    <tr>
-        <th>Id</th>
-        <th>Source</th>
-        <th>Name</th>
-        <th colspan="3">Actions</th>
-    </tr>
-        {%  for source in source_list %}
+    <div class="container">
+        <table class="table table-hover">
         <tr>
-            <td style="text-align: center">{{ source.id }}</td>
-            <td style="text-align: center">{{ source.url }}</td>
-            <td style="text-align: center">{{ source.name }}</td>
-            <td><a href="{% url 'currency:source_details' pk=source.id %}">View details</a></td>
-            <td><a href="{% url 'currency:source_update' pk=source.id %}">Edit</a></td>
-            <td><a href="{% url 'currency:source_delete' pk=source.id %}">Delete</a></td>
+            <th colspan="6"><a href="{% url 'currency:source_create' %}">Create new source</a></th>
+        </th>
         </tr>
-        {% endfor %}
-    </table>
-
+        <tr>
+            <th>Id</th>
+            <th>Source</th>
+            <th>Name</th>
+            <th colspan="3">Actions</th>
+        </tr>
+            {%  for source in source_list %}
+            <tr>
+                <td style="text-align: center">{{ source.id }}</td>
+                <td style="text-align: center">{{ source.url }}</td>
+                <td style="text-align: center">{{ source.name }}</td>
+                <td>
+                <div class="btn-group">
+                    <a class="btn btn-secondary"
+                       role="button"
+                       href="{% url 'currency:source_details' pk=source.id %}">View details</a>
+                    <a class="btn btn-secondary"
+                       role="button"
+                       href="{% url 'currency:source_update' pk=source.id %}">Edit</a>
+                    <a class="btn btn-secondary"
+                       role="button"
+                       href="{% url 'currency:source_delete' pk=source.id %}">Delete</a>
+                </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock main_content %}

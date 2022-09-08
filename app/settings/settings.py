@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-zr9ak_ses+9+75!ho4whw7b$h_=5wtn_!8l=cq6xw#bg#jwnzg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'rangefilter',
     'import_export',
     'silk',
-    'accounts'
+    'accounts',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -123,12 +124,17 @@ USE_TZ = True
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 ############
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR / 'static',
 ]
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / '..' / 'static_content' / 'media'
+
 SILKY_PYTHON_PROFILER = True
 
 # Default primary key field type

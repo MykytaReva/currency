@@ -4,10 +4,10 @@
 
 {% block main_content %}
     Log In
-
+    {% load crispy_forms_tags %}
     <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{form|crispy}}
     <button type="submit" class="btn btn-success">Log In</button>
     <a href="{% url 'password_reset' %}"><button type="button" class="btn btn-secondary">Forgot your password?</button></a>
     </form>
