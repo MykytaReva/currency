@@ -16,7 +16,6 @@ class UserProfileView(LoginRequiredMixin, generic.UpdateView):
 
     )
     success_url = reverse_lazy('index')
-
     def get_object(self, queryset=None):
         return self.request.user
 

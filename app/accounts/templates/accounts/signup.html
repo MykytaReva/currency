@@ -3,7 +3,8 @@
 {% block title_block %} SignUp {% endblock title_block %}
 
 {% block main_content %}
-    SignUp
+    <h4>SignUp</h4>
+    <p>You will get activation link to your email address.</p>
     {% load crispy_forms_tags %}
     <form method="post">
     {% csrf_token %}
