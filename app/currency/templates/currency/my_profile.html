@@ -4,11 +4,12 @@
 
 {% block main_content %}
 
-    My Profile
+    <h4>My Profile</h4>
+    {% load static %}
     {% if request.user.avatar %}
         <img src="{{ request.user.avatar.url }}" height="100" width="100">
     {% else %}
-        <img src="/media/icons/anonymous.png" height="100" width="100">
+        <img src="{% static 'icons/anonymous.png' %}" height="100" width="100">
     {% endif %}
     {% load crispy_forms_tags %}
     <form method="post" enctype="multipart/form-data">

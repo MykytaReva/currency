@@ -34,7 +34,7 @@ class ResponseLogListView(LoginRequiredMixin, generic.ListView):
 class RateListView(FilterView, LoginRequiredMixin, generic.ListView):
     queryset = Rate.objects.all().select_related('source')
     template_name = 'currency/rate_list.html'
-    paginate_by = 10
+    paginate_by = 5
     filterset_class = RateFilter
     page_size_option = ['5', '10', '15', '20']
 

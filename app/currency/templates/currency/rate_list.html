@@ -37,22 +37,25 @@
                 </thead>
                 <tbody>
                     {% for rate in rate_list %}
+
                     <tr>
                         <td style="text-align: center">{{ rate.id }}</td>
                         <td style="text-align: center">{{ rate.sale }}</td>
                         <td style="text-align: center">{{ rate.buy }}</td>
                         <td
                             style="text-align: center">{{ rate.source.name }}
+                            {% load static %}
+
                             {% if rate.source.name == 'PrivatBank'%}
-                                <img src="/media/icons/privat.png" height="20" width="20">
+                                <img src="{% static 'icons/privat.png'%}" height="20" width="20">
                             {% elif rate.source.name == 'OschadBank'%}
-                                <img src="/media/icons/oschadbank.png" height="30" width="40">
+                                <img src="{% static 'icons/oschadbank.png'%}" height="30" width="40">
                             {% elif rate.source.name == 'MonoBank'%}
-                                <img src="/media/icons/monobank.png" height="20" width="20">
+                                <img src="{% static 'icons/monobank.png'%}" height="20" width="20">
                             {% elif rate.source.name == 'AlfaBank'%}
-                                <img src="/media/icons/alfabank.png" height="20" width="30">
+                                <img src="{% static 'icons/alfabank.png'%}" height="20" width="30">
                             {% else %}
-                                <img src="/media/icons/nonamebank.png" height="20" width="20">
+                                <img src="{% static 'icons/nonamebank.png'%}" height="20" width="20">
                             {% endif %}
                         </td>
                         <td style="text-align: center">{{ rate.base_currency_type}} - {{rate.currency_type}}</td>
