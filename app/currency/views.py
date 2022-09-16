@@ -2,7 +2,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.core.mail import send_mail
 from django.conf import settings
-from django.http import JsonResponse
+
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from currency.filters import RateFilter

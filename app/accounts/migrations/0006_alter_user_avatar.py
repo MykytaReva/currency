@@ -14,6 +14,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='user',
             name='avatar',
-            field=models.FileField(blank=True, default='anonymous.png', upload_to=accounts.models.user_avatar, verbose_name='Avatar'),
+            field=models.FileField(blank=True,
+                                   default='anonymous.png',
+                                   upload_to=accounts.models.user_avatar,
+                                   verbose_name='Avatar'),
         ),
     ]
