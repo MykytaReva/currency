@@ -6,6 +6,20 @@ from django.conf import settings
 from django.urls import reverse
 
 
+class MyProfileForm(forms.ModelForm):
+    avatar = forms.FileField(
+        required=False,
+        widget=forms.ClearableFileInput(attrs={'multiple': True})
+    )
+
+    class Meta:
+        model = get_user_model()
+        fields = (
+            'first_name',
+            'last_name',
+            'avatar',
+        )
+
 class SignUpForm(forms.ModelForm):
     password1 = forms.CharField(widget=forms.PasswordInput())
     password2 = forms.CharField(widget=forms.PasswordInput())

@@ -23,4 +23,5 @@ urlpatterns = [
     path('source/details/<int:pk>/', views.SourceDetailView.as_view(), name='source_details'),
 
     path('log/', views.ResponseLogListView.as_view(), name='responselog_list'),
+    # path('rate-api/', views.api_get_rates_list, name='rate-api')
 ]
