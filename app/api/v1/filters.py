@@ -1,5 +1,5 @@
 import django_filters
-from currency.models import Rate
+from currency.models import Rate, Source, ContactUs
 
 
 class RateFilter(django_filters.FilterSet):
@@ -10,5 +10,22 @@ class RateFilter(django_filters.FilterSet):
             'sale': ('gte', 'lte', 'lt', 'gt'),
             'source': ('exact', ),
             'base_currency_type': ('exact', ),
-            'currency_type': ('exact', ),
+            'currency_type': ('exact', )
+        }
+
+
+class SourceFilter(django_filters.FilterSet):
+    class Meta:
+        model = Source
+        fields = {
+            'name': ('exact', )
+        }
+
+
+class ContactUsFilter(django_filters.FilterSet):
+    class Meta:
+        model = ContactUs
+        fields = {
+            'email_to': ('exact', ),
+            'subject': ('exact', )
         }
