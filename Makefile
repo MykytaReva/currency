@@ -6,6 +6,9 @@ run:
 shell_plus:
 	python app/manage.py shell_plus --print-sql
 
+show_urls:
+	python app/manage.py show_urls
+
 makemigrations:
 	python app/manage.py makemigrations
 

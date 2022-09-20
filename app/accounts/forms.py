@@ -7,10 +7,6 @@ from django.urls import reverse
 
 
 class MyProfileForm(forms.ModelForm):
-    avatar = forms.FileField(
-        required=False,
-        widget=forms.ClearableFileInput(attrs={'multiple': True})
-    )
 
     class Meta:
         model = get_user_model()
