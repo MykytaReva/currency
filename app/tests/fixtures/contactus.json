@@ -1,0 +1,68 @@
+[
+  {
+    "model": "currency.contactus",
+    "pk": 1,
+    "fields": {
+      "email_from": "testemail@gmail.com",
+      "email_to": "twisterlife2002@gmail.com",
+      "subject": "Press 20",
+      "message": "Hi, I am iviting you to my party on next week.",
+      "sent": "2022-09-20T13:08:38.654Z"
+    }
+  },
+  {
+    "model": "currency.contactus",
+    "pk": 2,
+    "fields": {
+      "email_from": "testemail@gmail.com",
+      "email_to": "twisterlife2002@gmail.com",
+      "subject": "Press 20",
+      "message": "Hi, I am iviting you to my party on next week.",
+      "sent": "2022-09-20T13:08:42.168Z"
+    }
+  },
+  {
+    "model": "currency.contactus",
+    "pk": 3,
+    "fields": {
+      "email_from": "testemail@gmail.com",
+      "email_to": "reva2002@gmail.com",
+      "subject": "ForeignKey()",
+      "message": "Hi, I am iviting you to my party on next week.",
+      "sent": "2022-09-20T13:09:00.098Z"
+    }
+  },
+  {
+    "model": "currency.contactus",
+    "pk": 4,
+    "fields": {
+      "email_from": "testemail@gmail.com",
+      "email_to": "twisterlife2002@gmail.com",
+      "subject": "Invitation",
+      "message": "Hi, I am iviting you to my party on next week.",
+      "sent": "2022-09-20T13:09:12.346Z"
+    }
+  },
+  {
+    "model": "currency.contactus",
+    "pk": 5,
+    "fields": {
+      "email_from": "testemail@gmail.com",
+      "email_to": "2002@gmail.com",
+      "subject": "Invitation",
+      "message": "Hello",
+      "sent": "2022-09-20T13:09:21.743Z"
+    }
+  },
+  {
+    "model": "currency.contactus",
+    "pk": 6,
+    "fields": {
+      "email_from": "testemail@gmail.com",
+      "email_to": "mykyts.rev@gmail.com",
+      "subject": "Congrats",
+      "message": "Nice job!",
+      "sent": "2022-06-01T13:11:10.403Z"
+    }
+  }
+]

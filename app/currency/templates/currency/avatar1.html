@@ -1,0 +1,22 @@
+{% extends 'currency/base.html' %}
+
+{% block title_block %} Profile {% endblock title_block %}
+
+{% block main_content %}
+
+    <h4>My Avatar</h4>
+    {% load static %}
+    {% if request.user.user_avatar.u_avatar %}
+        <img src="{{ request.user.user_avatar.u_avatar.url }}" height="100" width="100">
+
+    {% endif %}
+    {% load crispy_forms_tags %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form|crispy}}
+        <button type="reset" class="btn btn-secondary">Reset</button>
+        <button type="submit" class="btn btn-success">Save</button>
+    </form>
+
+
+{% endblock main_content %}

@@ -34,10 +34,15 @@ class ContactUs(models.Model):
         verbose_name_plural = "ContactUs"
 
 
+def bank_avatar(instance, filename):
+    return 'bank_avatar/{0}/{1}'.format(instance.name, filename)
+
+
 class Source(models.Model):
     url = models.URLField()
     name = models.CharField(max_length=256)
     code_name = models.CharField(max_length=20, unique=True)
+    bank_avatar = models.FileField(blank=True, upload_to=bank_avatar)
 
     class Meta:
         verbose_name_plural = "Source"

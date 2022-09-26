@@ -31,5 +31,6 @@ class SourceForm(forms.ModelForm):
         fields = (
             'url',
             'name',
+            'bank_avatar',
 
         )

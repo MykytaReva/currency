@@ -31,6 +31,18 @@ class ResponseLogListView(LoginRequiredMixin, generic.ListView):
     template_name = 'currency/responselog_list.html'
 
 
+# def api_get_rates_list(request):
+#     queryset = Rate.objects.all().select_related('source')
+#     response_content = []
+#     for rate in queryset:
+#         response_content.append({
+#             'id': rate.id,
+#             'buy': float(rate.buy),
+#             'sale': float(rate.sale)
+#         })
+#     return JsonResponse(response_content, safe=False)
+
+
 class RateListView(FilterView, LoginRequiredMixin, generic.ListView):
     queryset = Rate.objects.all().select_related('source')
     template_name = 'currency/rate_list.html'
