@@ -29,4 +29,3 @@ class User(AbstractUser):
 class UserAvatar(models.Model):
     u_id = models.IntegerField()
     u_avatar = models.FileField(upload_to=user_avatar)
-    
