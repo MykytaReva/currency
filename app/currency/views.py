@@ -14,7 +14,6 @@ from django_filters.views import FilterView
 from currency.tasks import send_email_contact_us
 
 
-
 class IndexView(generic.TemplateView):
     template_name = 'currency/index.html'
 

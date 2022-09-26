@@ -6,6 +6,13 @@ from django.conf import settings
 from django.urls import reverse
 from accounts.models import UserAvatar, User
 
+# def __init__(self, request, *args, **kwargs):
+# super().__init__(*args, **kwargs) self.request = request
+# def save(self, commit=True): super().save(commit=False)
+# self.instance.user = self.request.user
+# self.instance.save()
+# return self.instance
+
 
 # def my_view(request):
 #     if not request.user.is_authenticated:
@@ -20,13 +27,12 @@ class CreateAvatarForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance: UserAvatar = super().save(commit=False)
-        ###
+        #########
         instance.u_id = get_user_model().objects.last().id
-        # instance.u_id = my_view(request)
-        ###
-
+        #########
         instance.save()
         return instance
+
 
 class SignUpForm(forms.ModelForm):
     password1 = forms.CharField(widget=forms.PasswordInput())
@@ -55,11 +61,11 @@ class SignUpForm(forms.ModelForm):
         instance.set_password(self.cleaned_data['password1'])
         # instance.user_avatar_id = instance.id
 
-        if not User.objects.all().count():
-            u_id = 1
+        if User.objects.last():
+            u_id = User.objects.last().id + 1
             instance.user_avatar_id = u_id
         else:
-            u_id = User.objects.all().count() + 1
+            u_id = 1
             instance.user_avatar_id = u_id
         if commit:
             UserAvatar.objects.create(u_id=u_id, u_avatar='icons/anonymous.png')

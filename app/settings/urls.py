@@ -18,7 +18,7 @@ urlpatterns = [
     path('__debug__/', include('debug_toolbar.urls')),
 
     path('auth/', include('django.contrib.auth.urls')),
-    ]
+]
 
 urlpatterns += [path('silk/', include('silk.urls', namespace='silk'))]
 

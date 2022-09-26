@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from accounts.forms import SignUpForm, CreateAvatarForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from accounts.models import  UserAvatar
+from accounts.models import UserAvatar
 
 
 class UserProfileView(LoginRequiredMixin, generic.UpdateView):
@@ -21,6 +21,7 @@ class UserProfileView(LoginRequiredMixin, generic.UpdateView):
     def get_object(self, queryset=None):
 
         return self.request.user
+
 
 class UserAvatarView(generic.UpdateView):
     queryset = UserAvatar.objects.all()
@@ -39,6 +40,11 @@ class UserAvatarCreateView(generic.CreateView):
     # }
     form_class = CreateAvatarForm
     success_url = reverse_lazy('index')
+
+    # def get_form_kwargs(self): kwargs = super().get_form_kwargs()
+    #
+    # kwargs['request'] = self.request
+    # return kwargs
 
     # def save(self, commit=True):
     #     instance: UserAvatar = super().save(commit=False)

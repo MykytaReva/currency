@@ -3,16 +3,16 @@ from django.db import models
 
 
 def user_avatar(instance, filename):
-    # breakpoint()
     return 'avatar/{0}/{1}'.format(instance.u_id, filename)
-#format(instance.user_id
-#return f'avatar/{uuid.uuid4()}_{filename}'
+# format(instance.user_id
+# return f'avatar/{uuid.uuid4()}_{filename}'
 
 # class User(AbstractUser):
 #     USERNAME_FIELD = 'email'
 #     REQUIRED_FIELDS = ['username']
 #     avatar = models.FileField(upload_to=user_avatar, blank=True)
 #     email = models.EmailField('email address', unique=True)
+
 
 class User(AbstractUser):
     USERNAME_FIELD = 'email'
@@ -22,6 +22,9 @@ class User(AbstractUser):
                                     on_delete=models.CASCADE,
                                     null=True)
     email = models.EmailField('email address', unique=True)
+
+    # def get_avatar(self):
+
 
 class UserAvatar(models.Model):
     u_id = models.IntegerField()
