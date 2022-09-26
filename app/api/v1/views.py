@@ -14,6 +14,7 @@ from api.v1.filters import RateFilter, ContactUsFilter, SourceFilter
 
 
 from api.v1.throttles import AnonCurrencyThrottle
+#python app/manage.py dumpdata currency.source > sourse.json
 
 
 class RateViewSet(ModelViewSet):

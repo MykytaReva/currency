@@ -6,17 +6,19 @@
 
     <h4>My Profile</h4>
     {% load static %}
-    {% if request.user.avatar %}
-        <img src="{{ request.user.avatar.url }}" height="100" width="100">
+    {% if request.user.user_avatar.u_avatar %}
+        <img src="{{ request.user.user_avatar.u_avatar.url }}" height="100" width="100">
     {% else %}
         <img src="{% static 'icons/anonymous.png' %}" height="100" width="100">
     {% endif %}
     {% load crispy_forms_tags %}
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form|crispy}}
+        {{form|crispy}}
         <button type="reset" class="btn btn-secondary">Reset</button>
         <button type="submit" class="btn btn-success">Save</button>
+        <button type="button" class="btn btn-light"><a href="{% url 'accounts:avatar'  pk=user.id  %}"> Update Avatar</a></button>
+        <button type="button" class="btn btn-light"><a href="{% url 'accounts:avatar1'  pk=user.id  %}"> Create Avatar</a></button>
     </form>
 
 

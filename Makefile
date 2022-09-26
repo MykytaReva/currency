@@ -24,5 +24,5 @@ celery worker:
 migrate: makemigrations \
 	migrate1
 
-
-
+pytest:
+	pytest app/tests/

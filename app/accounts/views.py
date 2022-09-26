@@ -2,18 +2,50 @@ from django.views import generic
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
-from accounts.forms import SignUpForm, MyProfileForm
+from accounts.forms import SignUpForm, CreateAvatarForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from accounts.models import  UserAvatar
 
 
 class UserProfileView(LoginRequiredMixin, generic.UpdateView):
     queryset = get_user_model().objects.all()
     template_name = 'currency/my_profile.html'
-    form_class = MyProfileForm
+    fields = (
+        'first_name',
+        'last_name',
+        # 'avatar',
+
+    )
     success_url = reverse_lazy('index')
 
     def get_object(self, queryset=None):
+
         return self.request.user
+
+class UserAvatarView(generic.UpdateView):
+    queryset = UserAvatar.objects.all()
+    template_name = 'currency/avatar.html'
+    fields = {
+        'u_avatar'
+    }
+    success_url = reverse_lazy('index')
+
+
+class UserAvatarCreateView(generic.CreateView):
+    queryset = UserAvatar.objects.all()
+    template_name = 'currency/avatar1.html'
+    # fields = {
+    #     'u_avatar'
+    # }
+    form_class = CreateAvatarForm
+    success_url = reverse_lazy('index')
+
+    # def save(self, commit=True):
+    #     instance: UserAvatar = super().save(commit=False)
+    #     instance.u_id = get_user_model().id
+    #
+    #     instance.save()
+    #     return instance
 
 
 class SignUpView(generic.CreateView):

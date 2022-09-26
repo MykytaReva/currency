@@ -17,10 +17,10 @@ class RateSerializer(ModelSerializer):
             'created',
             'source'
         )
-        extra_kwargs = {
-            'sale': {'read_only': True},
-            'buy': {'read_only': True},
-        }
+        # extra_kwargs = {
+        #     'sale': {'read_only': True},
+        #     'buy': {'read_only': True},
+        # }
 
 
 class SourceSerializer(ModelSerializer):
