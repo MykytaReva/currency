@@ -11,8 +11,6 @@ from api.v1.serializer import RateSerializer, SourceSerializer, ContactUsSeriali
 from api.v1.pagination import RatePagination
 
 from api.v1.filters import RateFilter, ContactUsFilter, SourceFilter
-
-
 from api.v1.throttles import AnonCurrencyThrottle
 
 
@@ -44,6 +42,7 @@ class SourceView(generics.ListAPIView):
 class ContactUsView(ModelViewSet):
     queryset = ContactUs.objects.all()
     serializer_class = ContactUsSerializer
+    # pagination_class = ContactUsPagination
     filterset_class = ContactUsFilter
     filter_backends = (
         filters.DjangoFilterBackend,
