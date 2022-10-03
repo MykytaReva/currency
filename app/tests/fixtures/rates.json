@@ -1,7 +1,7 @@
 [
   {
     "model": "currency.rate",
-    "pk": 179,
+    "pk": 279,
     "fields": {
       "base_currency_type": "UAH",
       "currency_type": "USD",
@@ -13,7 +13,7 @@
   },
   {
     "model": "currency.rate",
-    "pk": 180,
+    "pk": 280,
     "fields": {
       "base_currency_type": "UAH",
       "currency_type": "EUR",
@@ -25,7 +25,7 @@
   },
   {
     "model": "currency.rate",
-    "pk": 181,
+    "pk": 281,
     "fields": {
       "base_currency_type": "USD",
       "currency_type": "BTC",
@@ -38,6 +38,102 @@
   {
     "model": "currency.rate",
     "pk": 182,
+    "fields": {
+      "base_currency_type": "UAH",
+      "currency_type": "USD",
+      "sale": "37.50",
+      "buy": "36.65",
+      "source": 3,
+      "created": "2022-09-21T08:35:55.731Z"
+    }
+  },
+    {
+    "model": "currency.rate",
+    "pk": 129,
+    "fields": {
+      "base_currency_type": "UAH",
+      "currency_type": "USD",
+      "sale": "37.45",
+      "buy": "36.57",
+      "source": 1,
+      "created": "2022-09-21T08:35:55.526Z"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "pk": 120,
+    "fields": {
+      "base_currency_type": "UAH",
+      "currency_type": "EUR",
+      "sale": "37.59",
+      "buy": "36.22",
+      "source": 1,
+      "created": "2022-09-21T08:35:55.533Z"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "pk": 121,
+    "fields": {
+      "base_currency_type": "USD",
+      "currency_type": "BTC",
+      "sale": "19794.43",
+      "buy": "17909.25",
+      "source": 1,
+      "created": "2022-09-21T08:35:55.539Z"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "pk": 122,
+    "fields": {
+      "base_currency_type": "UAH",
+      "currency_type": "USD",
+      "sale": "37.50",
+      "buy": "36.65",
+      "source": 3,
+      "created": "2022-09-21T08:35:55.731Z"
+    }
+  },
+    {
+    "model": "currency.rate",
+    "pk": 171,
+    "fields": {
+      "base_currency_type": "UAH",
+      "currency_type": "USD",
+      "sale": "37.45",
+      "buy": "36.57",
+      "source": 1,
+      "created": "2022-09-21T08:35:55.526Z"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "pk": 150,
+    "fields": {
+      "base_currency_type": "UAH",
+      "currency_type": "EUR",
+      "sale": "37.59",
+      "buy": "36.22",
+      "source": 1,
+      "created": "2022-09-21T08:35:55.533Z"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "pk": 141,
+    "fields": {
+      "base_currency_type": "USD",
+      "currency_type": "BTC",
+      "sale": "19794.43",
+      "buy": "17909.25",
+      "source": 1,
+      "created": "2022-09-21T08:35:55.539Z"
+    }
+  },
+  {
+    "model": "currency.rate",
+    "pk": 184,
     "fields": {
       "base_currency_type": "UAH",
       "currency_type": "USD",

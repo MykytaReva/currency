@@ -1,20 +1,17 @@
 from rest_framework.reverse import reverse
-from rest_framework.test import APIClient
 import pytest
 
 from app.settings.settings import EMAIL_HOST_USER
 
 
-def test_contactus_get():
-    client = APIClient()
-    response = client.get(reverse('api-v1:contactus-list'))
+def test_contactus_get(api_client_auth):
+    response = api_client_auth.get(reverse('api-v1:contactus-list'))
     assert response.status_code == 200
     assert response.json()['count']
 
 
-def test_contactus_post_empty():
-    client = APIClient()
-    response = client.post(reverse('api-v1:contactus-list'), data={})
+def test_contactus_post_empty(api_client_auth):
+    response = api_client_auth.post(reverse('api-v1:contactus-list'), data={})
     assert response.status_code == 400
     assert response.json() == {
         'email_to': ['This field is required.'],
@@ -31,14 +28,13 @@ def test_contactus_post_empty():
         ('ibragim@d.it', '34342dsfsdf2234l@c.c', 23)
     )
 )
-def test_contactus_post_correct(client, email, subject, message):
-    client = APIClient()
+def test_contactus_post_correct(api_client_auth, email, subject, message):
     data = {
         'email_to': email,
         'subject': subject,
         'message': message
     }
-    response = client.post(reverse('api-v1:contactus-list'), data=data)
+    response = api_client_auth.post(reverse('api-v1:contactus-list'), data=data)
     assert response.status_code == 201
 
 
@@ -50,14 +46,13 @@ def test_contactus_post_correct(client, email, subject, message):
         ('ibragim@d.i', '34342dsfsdf2234l@c.c', 23)
     )
 )
-def test_contactus_post_incorrect(client, email, subject, message):
-    client = APIClient()
+def test_contactus_post_incorrect(api_client_auth, email, subject, message):
     data = {
         'email_to': email,
         'subject': subject,
         'message': message
             }
-    response = client.post(reverse('api-v1:contactus-list'), data=data)
+    response = api_client_auth.post(reverse('api-v1:contactus-list'), data=data)
     assert response.status_code == 400
     assert response.json() == {'email_to': ['Enter a valid email address.']}
 
@@ -70,14 +65,13 @@ def test_contactus_post_incorrect(client, email, subject, message):
         ('ibragim@d.it', '34342dsfsdf2234l@c.c', 23)
     )
 )
-def test_contactus_send_email(client, mailoutbox, email, subject, message):
-    client = APIClient()
+def test_contactus_send_email(api_client_auth, mailoutbox, email, subject, message):
     data = {
         'email_to': email,
         'subject': subject,
         'message': message
             }
-    response = client.post(reverse('api-v1:contactus-list'), data=data)
+    response = api_client_auth.post(reverse('api-v1:contactus-list'), data=data)
     assert response.status_code == 201
     assert len(mailoutbox) == 1
     assert mailoutbox[0].from_email == EMAIL_HOST_USER

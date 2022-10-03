@@ -30,6 +30,7 @@ def get_oschadbank(url):
                 'Sale': rate_list[rate_list.index(US) + 2],
                 'Buy': rate_list[rate_list.index(US) + 3]
             }
+
     return rate_dict
 
 

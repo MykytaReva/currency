@@ -43,7 +43,7 @@ class ResponseLogListView(LoginRequiredMixin, generic.ListView):
 #     return JsonResponse(response_content, safe=False)
 
 
-class RateListView(FilterView, LoginRequiredMixin, generic.ListView):
+class RateListView(FilterView, generic.ListView):
     queryset = Rate.objects.all().select_related('source')
     template_name = 'currency/rate_list.html'
     paginate_by = 5
