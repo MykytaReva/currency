@@ -10,8 +10,7 @@ django-silk==5.0.1
 django-crispy-forms==1.14.0
 django-filter==22.1
 djangorestframework==3.13.1
-djangorestframework-simplejwt
-
+gunicorn
 
 #celery
 celery==5.2.7
