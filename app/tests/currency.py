@@ -28,7 +28,7 @@ def test_contactus_empty(client):
                                                     }
 
 
-def test_contactus_post_isvalid(client, mailoutbox):
+def test_contactus_post_isvalid(client,  mailoutbox):
     data = {
         'email_to': 'nikitareva@yahoo.com',
         'subject': 'Invitation',

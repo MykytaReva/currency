@@ -42,6 +42,7 @@ def parse_privatbank():
         'EUR': mch.CurrencyType.CURRENCY_TYPE_UER,
         'BTC': mch.CurrencyType.CURRENCY_TYPE_BTC,
     }
+
     source = Source.objects.get_or_create(
         code_name=consts.CODE_NAME_PRIVATBANK,
         defaults={'url': url, 'name': 'PrivatBank'}
@@ -244,7 +245,7 @@ def parse_alfabank():
     url = requests.get(link)
 
     rate_alfabank = get_alfabank(url)
-
+    # breakpoint()
     currency_type_mapper = {
         'UAH': mch.CurrencyType.CURRENCY_TYPE_UAH,
         'USD': mch.CurrencyType.CURRENCY_TYPE_USD,
