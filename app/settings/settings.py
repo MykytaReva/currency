@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-zr9ak_ses+9+75!ho4whw7b$h_=5wtn_!8l=cq6xw#bg#jwnzg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -178,9 +178,10 @@ SIMPLE_JWT = {
 
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'static',
+# ]
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / '..' / 'static_content' / 'media'
 
