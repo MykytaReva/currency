@@ -1,3 +1,7 @@
+# from django.core.cache import cache
+# from django.utils.decorators import method_decorator
+# from django.views.decorators.cache import cache_page
+
 from django.urls import reverse_lazy
 from django.views import generic
 from django.core.mail import send_mail
@@ -14,15 +18,44 @@ from django_filters.views import FilterView
 from currency.tasks import send_email_contact_us
 
 
+# @method_decorator(cache_page(60*60*3), name='dispatch')
 class IndexView(generic.TemplateView):
     template_name = 'currency/index.html'
 
     def get_context_data(self, *args, **kwargs):
-        # breakpoint()
+        context = super().get_context_data(**kwargs)
         context = super().get_context_data(**kwargs)
         context['rate_count'] = Rate.objects.count()
         context['contactus_count'] = ContactUs.objects.count()
         context['source_count'] = Source.objects.count()
+        # cache_key = 'IndexPageRate'
+        # rate_count = cache.get(cache_key)
+        # if rate_count:
+        #     context['rate_count'] = rate_count
+        # else:
+        #     rate_count = Rate.objects.count()
+        #     cache.set(cache_key, rate_count, 20)
+        #     context['rate_count'] = rate_count
+        #
+        #
+        # cache_key = 'IndexPageContactUs'
+        # contactus_count = cache.get(cache_key)
+        # if contactus_count:
+        #     context['contactus_count'] = contactus_count
+        # else:
+        #     contactus_count = ContactUs.objects.count()
+        #     cache.set(cache_key, contactus_count, 20)
+        #     context['contactus_count'] = contactus_count
+        #
+        # cache_key = 'IndexPageSource'
+        # source_count = cache.get(cache_key)
+        # if source_count:
+        #     context['source_count'] = source_count
+        # else:
+        #     source_count = Source.objects.count()
+        #     cache.set(cache_key, source_count, 20)
+        #     context['source_count'] = source_count
+
         return context
 
 

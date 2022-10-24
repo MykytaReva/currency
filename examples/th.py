@@ -1,47 +1,47 @@
-from concurrent import futures
-from multiprocessing import Process
+import logging
+# logging.debug('This is a debug message')
+# logging.info('This is an info message')
+# logging.warning('This is a warning message')
+# logging.error('This is an error message')
+# logging.critical('This is a critical message')
 
-import requests
-from time import sleep, time
-from threading import Thread, current_thread
-
-def foo(b):
-    print(f'START{ current_thread()}')
-    sleep(b)
-    print(f'END  { current_thread()}')
-start = time()
-
-# URLS = [
-#     'https://uk.wikipedia.org/wiki/%D0%93%D0%BE%D0%BB%D0%BE%D0%B2%D0%BD%D0%B0_%D1%81%D1%82%D0%BE%D1%80%D1%96%D0%BD%D0%BA%D0%B0',
-#     'https://uk.wikipedia.org/wiki/%D0%92%D1%96%D0%BA%D1%96%D0%BF%D0%B5%D0%B4%D1%96%D1%8F:%D0%9F%D0%BE%D1%80%D1%82%D0%B0%D0%BB_%D1%81%D0%BF%D1%96%D0%BB%D1%8C%D0%BD%D0%BE%D1%82%D0%B8',
-#     'https://uk.wikipedia.org/wiki/%D0%A1%D0%BF%D0%B5%D1%86%D1%96%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0:%D0%A1%D0%BF%D0%B5%D1%86%D1%96%D0%B0%D0%BB%D1%8C%D0%BD%D1%96_%D1%81%D1%82%D0%BE%D1%80%D1%96%D0%BD%D0%BA%D0%B8',
-#     'https://uk.wikipedia.org/wiki/%D0%A1%D0%BF%D0%B5%D1%86%D1%96%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0:LintErrors',
-# ] * 40
+# logging.basicConfig(filename='app.log',
+#                     filemode='a',
+#                     format='%(asctime)s - %(message)s', level=logging.INFO,
+#                     datefmt='%d-%b-%y %H:%M:%S')
+# logging.critical('Admin logged in')
+# Create a custom logger
+# logger = logging.getLogger(__name__)
 #
-# def requests_get(url):
-#     response = requests.get(url)
-#     print(response.status_code)
+# # Create handlers
+# c_handler = logging.StreamHandler()
+# f_handler = logging.FileHandler('file.log')
+# c_handler.setLevel(logging.WARNING)
+# f_handler.setLevel(logging.ERROR)
 #
-# with futures.ThreadPoolExecutor(10) as executor:
-#     threads = []
-#     for url in URLS:
-#         threads.append(executor.submit(requests_get, url=url))
+# # Create formatters and add it to handlers
+# c_format = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
+# f_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+# c_handler.setFormatter(c_format)
+# f_handler.setFormatter(f_format)
 #
-#     for th in threads:
-#         th.result()
+# # Add handlers to the logger
+# logger.addHandler(c_handler)
+# logger.addHandler(f_handler)
+#
+# logger.warning('This is a warning')
+# logger.error('This is an error')
 
+#
+# import requests
+#
+# # response = requests.options('https://api.privatbank.ua/p24api/exchange_rates?json&date=15.10.2022')
+# # print(response)
+#
+# # headers = {'content-type': 'application/json'}
+# params = {'json': None, 'date': '15.10.2022'}
+# params = '&'.join([k if v is None else f"{k}={v}" for k, v in params.items()])
+# response = requests.get('https://api.privatbank.ua/p24api/exchange_rates',
+#             params=params)
+# print(response.url)
 
-def countdown(n):
-    while n != 0:
-        n -= 1
-n = 500_000_000
-
-th1 = Process(target=countdown, args=[n//2])
-th2 = Process(target=countdown, args=[n//2])
-th1.start()
-th2.start()
-th1.join()
-th2.join()
-
-end = time()
-print(f'took time {end - start}')

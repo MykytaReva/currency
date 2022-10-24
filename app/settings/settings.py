@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-zr9ak_ses+9+75!ho4whw7b$h_=5wtn_!8l=cq6xw#bg#jwnzg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -92,6 +92,12 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -237,5 +243,9 @@ CELERY_BEAT_SCHEDULE = {
     'parse_universalbank': {
         'task': 'currency.tasks.parse_universalbank',
         'schedule': crontab(minute='*/1')
+    },
+    'parse_archive_privatbank': {
+        'task': 'currency.tasks.parse_archive_privatbank',
+        'schedule': crontab(hour='*/24')
     }
 }

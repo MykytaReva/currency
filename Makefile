@@ -15,10 +15,10 @@ makemigrations:
 migrate1:
 	python app/manage.py migrate
 
-celery beat:
+celery_beat:
 	cd app && celery -A settings beat --loglevel=INFO
 
-celery worker:
+celery_worker:
 	cd app && celery -A settings worker --loglevel=INFO
 
 migrate: makemigrations \
