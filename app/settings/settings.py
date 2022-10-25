@@ -92,6 +92,12 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -178,9 +184,10 @@ SIMPLE_JWT = {
 
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'static',
+# ]
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / '..' / 'static_content' / 'media'
 
@@ -236,5 +243,9 @@ CELERY_BEAT_SCHEDULE = {
     'parse_universalbank': {
         'task': 'currency.tasks.parse_universalbank',
         'schedule': crontab(minute='*/1')
+    },
+    'parse_archive_privatbank': {
+        'task': 'currency.tasks.parse_archive_privatbank',
+        'schedule': crontab(hour='*/24')
     }
 }

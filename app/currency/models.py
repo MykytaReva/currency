@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from currency.model_choices import CurrencyType
 from django.conf import settings
@@ -17,7 +19,7 @@ class Rate(models.Model):
     sale = models.DecimalField(max_digits=10, decimal_places=2)
     buy = models.DecimalField(max_digits=10, decimal_places=2)
     source = models.ForeignKey('currency.Source', on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(default=datetime.utcnow)
 
     class Meta:
         verbose_name_plural = "Rate"
