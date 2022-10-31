@@ -25,11 +25,13 @@ class CreateAvatarForm(forms.ModelForm):
             'u_avatar',
         )
 
+    def __init__(self, request, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.request = request
+
     def save(self, commit=True):
         instance: UserAvatar = super().save(commit=False)
-        #########
-        instance.u_id = get_user_model().objects.last().id
-        #########
+        instance.u_id  = self.request.user.id
         instance.save()
         return instance
 

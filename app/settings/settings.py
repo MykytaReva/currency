@@ -244,8 +244,4 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'currency.tasks.parse_universalbank',
         'schedule': crontab(minute='*/1')
     },
-    'parse_archive_privatbank': {
-        'task': 'currency.tasks.parse_archive_privatbank',
-        'schedule': crontab(hour='*/24')
-    }
 }

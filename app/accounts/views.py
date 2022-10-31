@@ -41,15 +41,14 @@ class UserAvatarCreateView(generic.CreateView):
     form_class = CreateAvatarForm
     success_url = reverse_lazy('index')
 
-    # def get_form_kwargs(self): kwargs = super().get_form_kwargs()
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
     #
-    # kwargs['request'] = self.request
-    # return kwargs
-
     # def save(self, commit=True):
     #     instance: UserAvatar = super().save(commit=False)
     #     instance.u_id = get_user_model().id
-    #
     #     instance.save()
     #     return instance
 
