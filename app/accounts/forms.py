@@ -30,10 +30,14 @@ class CreateAvatarForm(forms.ModelForm):
         self.request = request
 
     def save(self, commit=True):
-        instance: UserAvatar = super().save(commit=False)
-        instance.u_id  = self.request.user.id
-        instance.save()
-        return instance
+        instance1: UserAvatar = super().save(commit=False)
+        instance1.u_id  = self.request.user.id
+        instance1.save()
+        instance2: User = super().save(commit=False)
+        instance2.user_avatar = instance1.u_id
+        instance2.save()
+
+        return instance1
 
 
 class SignUpForm(forms.ModelForm):
@@ -70,7 +74,7 @@ class SignUpForm(forms.ModelForm):
             u_id = 1
             instance.user_avatar_id = u_id
         if commit:
-            UserAvatar.objects.create(u_id=u_id, u_avatar='icons/anonymous.png')
+            UserAvatar.objects.create(u_id=u_id)
             instance.save()
         self._send_activation_email()
 
