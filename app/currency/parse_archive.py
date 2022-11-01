@@ -1,25 +1,23 @@
 import requests
-from datetime import *
-from app.currency.models import Rate, Source
+from datetime import datetime, date, timedelta
 from app.currency import consts
 from app.currency import model_choices as mch
 from app.currency.utils import to_decimal
 
+
 def parse_archive_privatbank():
     from currency.models import Rate, Source
-    #changing date type
+
     str_date = '20.10.2022'
     start_date = datetime.strptime(str_date, "%d.%m.%Y").date()
     current_date = date.today()
 
     while start_date != current_date:
-        # changing date type
-        rate_dt = f'''{start_date.day}.{start_date.month}.{start_date.year}'''
-        #skip written days
+
         if Rate.objects.filter(created=start_date).count():
             start_date += timedelta(days=1)
             continue
-        #provide the link
+
         url = f'''https://api.privatbank.ua/p24api/
         exchange_rates?json&date={start_date.day}.{start_date.month}.{start_date.year}'''
 
@@ -79,4 +77,3 @@ def parse_archive_privatbank():
                     created=start_date,
                 )
         start_date += timedelta(days=1)
-

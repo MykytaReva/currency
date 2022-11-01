@@ -8,6 +8,7 @@ def user_avatar(instance, filename):
 # def get_user_id():
 #     return UserAvatar.objects.get_or_create(u_id=request.user.id)[0]
 
+
 class User(AbstractUser):
     #
     # def __init__(self, request, *args, **kwargs):
@@ -28,7 +29,6 @@ class User(AbstractUser):
     # )
     # email = models.EmailField('email address', unique=True)
 
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
     user_avatar = models.ForeignKey(
@@ -43,7 +43,6 @@ class User(AbstractUser):
 class UserAvatar(models.Model):
     u_id = models.IntegerField()
     u_avatar = models.FileField(upload_to=user_avatar, default='icons/anonymous.png')
-
 
     # u_id = models.ForeignKey(
     #     'accounts.User',

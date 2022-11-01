@@ -31,7 +31,7 @@ class CreateAvatarForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance1: UserAvatar = super().save(commit=False)
-        instance1.u_id  = self.request.user.id
+        instance1.u_id = self.request.user.id
         instance1.save()
         instance2: User = super().save(commit=False)
         instance2.user_avatar = instance1.u_id

@@ -64,6 +64,7 @@ class SignUpView(generic.CreateView):
         kwargs['request'] = self.request
         return kwargs
 
+
 class UserActivateView(generic.RedirectView):
 
     pattern_name = 'index'
