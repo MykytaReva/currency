@@ -75,7 +75,6 @@ class SignUpForm(forms.ModelForm):
         #     u_id = 1
         #     instance.user_avatar_id = u_id
 
-        # better but in this case - > user_avatar is null -_-#
         u_id = self.request.user.id
         if not u_id:
             u_id = 1
