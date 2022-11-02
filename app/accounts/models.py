@@ -15,6 +15,15 @@ def user_avatar(instance, filename):
 
 
 class User(AbstractUser):
+    # def __init__(self, request, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.request = request
+    #
+    # @property
+    # def l_avatar(self, request):
+    #     last_avatar = UserAvatar.objects.filter(u_id=request.user.id).last()
+    #     return last_avatar.id
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
     user_avatar = models.ForeignKey(
@@ -24,8 +33,7 @@ class User(AbstractUser):
         null=True
     )
     email = models.EmailField('email address', unique=True)
-
-    # def get_avatar(self):
+    # active_avatar = models.CharField(max_length=40, default=l_avatar)
 
 
 class UserAvatar(models.Model):
