@@ -4,7 +4,7 @@ import uuid
 from django.core.mail import send_mail
 from django.conf import settings
 from django.urls import reverse
-from accounts.models import UserAvatar, User
+from accounts.models import UserAvatar
 
 
 class CreateAvatarForm(forms.ModelForm):
@@ -18,14 +18,14 @@ class CreateAvatarForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.request = request
 
-        def save(self, commit=True):
-            instance: UserAvatar = super().save(commit=False)
-            instance.user_id = self.request.user.id
-            instance.save()
-            self.request.user.user_avatar = instance
-            self.request.user.save()
-            return instance
-    # update field
+    def save(self, commit=True):
+        instance: UserAvatar = super().save(commit=False)
+        instance.user_id = self.request.user.id
+        instance.save()
+        self.request.user.user_avatar = instance
+        self.request.user.save()
+        return instance
+# update field
 
 
 class SignUpForm(forms.ModelForm):
@@ -41,7 +41,6 @@ class SignUpForm(forms.ModelForm):
         fields = (
             'email',
             'password1',
-            # 'user_avatar'
         )
 
     def clean(self):

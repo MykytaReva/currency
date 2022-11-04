@@ -3,19 +3,23 @@ from django.db import models
 
 
 def user_avatar(instance, filename):
-    return 'avatar/{0}/{1}'.format(instance.u_id, filename)
+    return 'avatar/{0}/{1}'.format(instance.user.id, filename)
 
 
 class User(AbstractUser):
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
     user_avatar = models.ForeignKey(
         'accounts.UserAvatar',
         db_column="Avatar",
+        related_name='current_avatar',
         on_delete=models.CASCADE,
-        null=True
+        null=True,
+        default=None
     )
     email = models.EmailField('email address', unique=True)
+    # active_avatar = models.CharField(max_length=40, default=l_avatar)
 
 
 class UserAvatar(models.Model):
