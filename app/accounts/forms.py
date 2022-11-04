@@ -31,10 +31,12 @@ class CreateAvatarForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance: UserAvatar = super().save(commit=False)
-        instance.u_id = self.request.user.id
+        instance.user_id = self.request.user.id
         instance.save()
+        self.request.user.user_avatar = instance
+        self.request.user.save()
         return instance
-
+#update field
 
 class SignUpForm(forms.ModelForm):
     password1 = forms.CharField(widget=forms.PasswordInput())
@@ -66,7 +68,7 @@ class SignUpForm(forms.ModelForm):
         instance.is_active = False
         instance.set_password(self.cleaned_data['password1'])
 
-        self.instance.user = self.request.user
+        # self.instance.user = self.request.user
 
         # if User.objects.last():
         #     u_id = User.objects.last().id + 1
@@ -76,13 +78,16 @@ class SignUpForm(forms.ModelForm):
         #     instance.user_avatar_id = u_id
 
         # better but in this case - > user_avatar is null -_-#
-        u_id = self.request.user.id
-        if not u_id:
-            u_id = 1
-        instance.user_avatar_id = u_id
+        # u_id = self.request.user.id
+        # if not u_id:
+        #     u_id = 1
+
 
         if commit:
-            UserAvatar.objects.create(u_id=u_id, u_avatar='icons/anonymous.png')
+            instance.save()
+
+            user_av = UserAvatar.objects.create(user_id=instance.id, u_avatar='icons/anonymous.png')
+            instance.user_avatar_id = user_av.id
             instance.save()
         self._send_activation_email()
 

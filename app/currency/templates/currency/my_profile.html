@@ -8,8 +8,6 @@
     {% load static %}
     {% if request.user.user_avatar.u_avatar %}
         <img src="{{ request.user.user_avatar.u_avatar.url }}" height="100" width="100">
-    {% else %}
-        <img src="{% static 'icons/anonymous.png' %}" height="100" width="100">
     {% endif %}
     {% load crispy_forms_tags %}
     <form method="post" enctype="multipart/form-data">
