@@ -87,14 +87,14 @@ services:
 
   nginx:
     image: nginx:latest
+#    build:localnginx:0.0.1
+#      dockerfile: dockerfile.nginx
+#      context: .
     container_name: nginx
     ports:
       - "80:80"
     volumes:
-      - ./default.conf:/etc/nginx/sites-enabled/default.conf
-#      - ./default.conf:/etc/nginx/sites-available/default.conf
-#      - ./default.conf:/etc/nginx/conf.d/default.conf:ro
-#      - ./default.conf:/etc/nginx/conf.d
+      - "./default:/etc/nginx/conf.d/default.conf"
 
 volumes:
   data: {}
