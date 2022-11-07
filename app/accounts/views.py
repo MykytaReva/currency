@@ -58,11 +58,11 @@ class SignUpView(generic.CreateView):
     template_name = 'accounts/signup.html'
     form_class = SignUpForm
     success_url = reverse_lazy('index')
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['request'] = self.request
-        return kwargs
+    #
+    # def get_form_kwargs(self):
+    #     kwargs = super().get_form_kwargs()
+    #     kwargs['request'] = self.request
+    #     return kwargs
 
 
 class UserActivateView(generic.RedirectView):

@@ -1,47 +1,23 @@
-import logging
-# logging.debug('This is a debug message')
-# logging.info('This is an info message')
-# logging.warning('This is a warning message')
-# logging.error('This is an error message')
-# logging.critical('This is a critical message')
+import asyncio
+from time import time
+import httpx, requests
 
-# logging.basicConfig(filename='app.log',
-#                     filemode='a',
-#                     format='%(asctime)s - %(message)s', level=logging.INFO,
-#                     datefmt='%d-%b-%y %H:%M:%S')
-# logging.critical('Admin logged in')
-# Create a custom logger
-# logger = logging.getLogger(__name__)
-#
-# # Create handlers
-# c_handler = logging.StreamHandler()
-# f_handler = logging.FileHandler('file.log')
-# c_handler.setLevel(logging.WARNING)
-# f_handler.setLevel(logging.ERROR)
-#
-# # Create formatters and add it to handlers
-# c_format = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
-# f_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-# c_handler.setFormatter(c_format)
-# f_handler.setFormatter(f_format)
-#
-# # Add handlers to the logger
-# logger.addHandler(c_handler)
-# logger.addHandler(f_handler)
-#
-# logger.warning('This is a warning')
-# logger.error('This is an error')
+async def get_url(url):
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        print(type(response.status_code))
 
-#
-# import requests
-#
-# # response = requests.options('https://api.privatbank.ua/p24api/exchange_rates?json&date=15.10.2022')
-# # print(response)
-#
-# # headers = {'content-type': 'application/json'}
-# params = {'json': None, 'date': '15.10.2022'}
-# params = '&'.join([k if v is None else f"{k}={v}" for k, v in params.items()])
-# response = requests.get('https://api.privatbank.ua/p24api/exchange_rates',
-#             params=params)
-# print(response.url)
 
+async def main():
+    urls = [
+               'https://uk.wikipedia.org/wiki/%D0%93%D0%BE%D0%BB%D0%BE%D0%B2%D0%BD%D0%B0_%D1%81%D1%82%D0%BE%D1%80%D1%96%D0%BD%D0%BA%D0%B0',
+               'https://uk.wikipedia.org/wiki/%D0%92%D1%96%D0%BA%D1%96%D0%BF%D0%B5%D0%B4%D1%96%D1%8F:%D0%9F%D0%BE%D1%80%D1%82%D0%B0%D0%BB_%D1%81%D0%BF%D1%96%D0%BB%D1%8C%D0%BD%D0%BE%D1%82%D0%B8',
+               'https://uk.wikipedia.org/wiki/%D0%A1%D0%BF%D0%B5%D1%86%D1%96%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0:%D0%A1%D0%BF%D0%B5%D1%86%D1%96%D0%B0%D0%BB%D1%8C%D0%BD%D1%96_%D1%81%D1%82%D0%BE%D1%80%D1%96%D0%BD%D0%BA%D0%B8',
+               'https://uk.wikipedia.org/wiki/%D0%A1%D0%BF%D0%B5%D1%86%D1%96%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0:LintErrors',
+           ] * 40
+
+    await asyncio.gather(*[get_url(url) for url in urls])
+
+start = time()
+asyncio.run(main())
+print(f'took time:{time() - start}')

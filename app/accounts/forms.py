@@ -6,17 +6,6 @@ from django.conf import settings
 from django.urls import reverse
 from accounts.models import UserAvatar, User
 
-# def __init__(self, request, *args, **kwargs):
-# super().__init__(*args, **kwargs) self.request = request
-# def save(self, commit=True): super().save(commit=False)
-# self.instance.user = self.request.user
-# self.instance.save()
-# return self.instance
-
-
-# def my_view(request):
-#     if not request.user.is_authenticated:
-#         return request.user.id
 
 class CreateAvatarForm(forms.ModelForm):
     class Meta:
@@ -25,9 +14,9 @@ class CreateAvatarForm(forms.ModelForm):
             'u_avatar',
         )
 
-    def __init__(self, request, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.request = request
+    # def __init__(self, request, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.request = request
 
     def save(self, commit=True):
         instance1: UserAvatar = super().save(commit=False)

@@ -60,7 +60,7 @@ MIDDLEWARE = [
     'currency.middlewares.SimpleMiddleware'
 ]
 
-BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+# BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 
 ROOT_URLCONF = 'settings.urls'
 
@@ -227,6 +227,15 @@ EMAIL_HOST_USER = 'testemail@gmail.com'
 EMAIL_HOST_PASSWORD = 'nik222333__'
 
 
+# CELERY_BROKER_URL = f'amqp://guest:guest@localhost:5672//'
+RABBITMQ_DEFAULT_USER = os.environ["RABBITMQ_DEFAULT_USER"]
+RABBITMQ_DEFAULT_PASS = os.environ["RABBITMQ_DEFAULT_PASS"]
+RABBITMQ_DEFAULT_HOST = os.environ.get("RABBITMQ_DEFAULT_HOST", "localhost")
+RABBITMQ_DEFAULT_PORT = os.environ.get("RABBITMQ_DEFAULT_PORT", "5672")
+CELERY_BROKER_URL = f'amqp://{RABBITMQ_DEFAULT_USER}:{RABBITMQ_DEFAULT_PASS}@' \
+        f'{RABBITMQ_DEFAULT_HOST}:{RABBITMQ_DEFAULT_PORT}//'
+
+
 LOGIN_URL = reverse_lazy('login')
 LOGIN_REDIRECT_URL = reverse_lazy('index')
 LOGOUT_REDIRECT_URL = reverse_lazy('index')
@@ -234,6 +243,7 @@ AUTH_USER_MODEL = 'accounts.User'
 
 HTTP_SCHEMA = 'http'
 DOMAIN = 'localhost:8000'
+
 
 CELERY_BEAT_SCHEDULE = {
     'parse_privatbank': {
