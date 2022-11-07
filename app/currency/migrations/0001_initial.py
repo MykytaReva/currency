@@ -31,7 +31,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ResponseLog',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                                           primary_key=True, serialize=False, verbose_name='ID')),
                 ('response_time', models.FloatField()),
                 ('request_method', models.CharField(max_length=4)),
                 ('query_params', models.CharField(max_length=64)),
@@ -45,7 +46,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Source',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                                           primary_key=True, serialize=False, verbose_name='ID')),
                 ('url', models.URLField()),
                 ('name', models.CharField(max_length=256)),
                 ('code_name', models.CharField(max_length=20, unique=True)),
@@ -58,13 +60,25 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Rate',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('base_currency_type', models.CharField(choices=[('UAH', 'Hrivna'), ('USD', 'Dollar'), ('EUR', 'Euro'), ('BTC', 'Bitcoin')], default='UAH', max_length=3)),
-                ('currency_type', models.CharField(choices=[('UAH', 'Hrivna'), ('USD', 'Dollar'), ('EUR', 'Euro'), ('BTC', 'Bitcoin')], default='USD', max_length=3)),
+                ('id', models.BigAutoField(
+                    auto_created=True, primary_key=True,
+                    serialize=False, verbose_name='ID')),
+                ('base_currency_type',
+                 models.CharField(
+                     choices=[('UAH', 'Hrivna'),
+                              ('USD', 'Dollar'),
+                              ('EUR', 'Euro'),
+                              ('BTC', 'Bitcoin')],
+                     default='UAH', max_length=3)),
+                ('currency_type', models.CharField(
+                    choices=[('UAH', 'Hrivna'), ('USD', 'Dollar'),
+                             ('EUR', 'Euro'), ('BTC', 'Bitcoin')],
+                    default='USD', max_length=3)),
                 ('sale', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('buy', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('created', models.DateTimeField(default=datetime.datetime.utcnow)),
-                ('source', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='currency.source')),
+                ('source', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                             to='currency.source')),
             ],
             options={
                 'verbose_name_plural': 'Rate',

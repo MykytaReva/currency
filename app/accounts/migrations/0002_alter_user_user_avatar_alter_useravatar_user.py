@@ -15,11 +15,16 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='user',
             name='user_avatar',
-            field=models.ForeignKey(db_column='Avatar', default=None, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='current_avatar', to='accounts.useravatar'),
+            field=models.ForeignKey(
+                db_column='Avatar', default=None, null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='current_avatar', to='accounts.useravatar'),
         ),
         migrations.AlterField(
             model_name='useravatar',
             name='user',
-            field=models.ForeignKey(default=None, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(default=None, null=True,
+                                    on_delete=django.db.models.deletion.CASCADE,
+                                    to=settings.AUTH_USER_MODEL),
         ),
     ]
