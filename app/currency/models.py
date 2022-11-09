@@ -52,10 +52,10 @@ class Source(models.Model):
 
 class ResponseLog(models.Model):
     response_time = models.FloatField()
-    request_method = models.CharField(max_length=4)
-    query_params = models.CharField(max_length=64)
-    ip = models.CharField(max_length=64)
-    path = models.CharField(max_length=122)
+    request_method = models.CharField(max_length=600)
+    query_params = models.CharField(max_length=600)
+    ip = models.CharField(max_length=600)
+    path = models.CharField(max_length=600)
 
     class Meta:
         verbose_name_plural = "ResponseLog"

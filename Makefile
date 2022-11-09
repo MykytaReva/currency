@@ -52,3 +52,12 @@ good_uwsgi_2:
 
 rest_nginx:
 	sudo /etc/init.d/nginx restart
+
+stop_rabbitmq:
+	sudo service rabbitmq-server stop
+
+stop_memcached:
+	sudo service memcached stop
+
+stop_nginx:
+	sudo service nginx stop
