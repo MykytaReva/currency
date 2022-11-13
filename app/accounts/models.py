@@ -28,6 +28,6 @@ class UserAvatar(models.Model):
         'accounts.User',
         on_delete=models.CASCADE,
         null=True,
-        default=None
+        default=None,
     )
     u_avatar = models.FileField(upload_to=user_avatar)
