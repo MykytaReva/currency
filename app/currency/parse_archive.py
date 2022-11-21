@@ -1,6 +1,5 @@
 import requests
-from datetime import *
-from app.currency.models import Rate, Source
+from datetime import datetime, date, timedelta
 from app.currency import consts
 from app.currency import model_choices as mch
 from app.currency.utils import to_decimal
@@ -8,7 +7,7 @@ from app.currency.utils import to_decimal
 
 def parse_archive_privatbank():
     from currency.models import Rate, Source
-    #changing date type
+
     str_date = '20.10.2022'
     start_date = datetime.strptime(str_date, "%d.%m.%Y").date()
     current_date = date.today()
