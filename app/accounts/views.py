@@ -65,6 +65,11 @@ class SignUpView(generic.CreateView):
         kwargs['request'] = self.request
         return kwargs
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
 
 class UserActivateView(generic.RedirectView):
 
