@@ -19,7 +19,6 @@ class User(AbstractUser):
         default=None
     )
     email = models.EmailField('email address', unique=True)
-    # active_avatar = models.CharField(max_length=40, default=l_avatar)
 
 
 class UserAvatar(models.Model):
