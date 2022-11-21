@@ -15,7 +15,7 @@ from api.v1.throttles import AnonCurrencyThrottle
 
 
 class RateViewSet(ModelViewSet):
-    queryset = Rate.objects.all().select_related('source')
+    queryset = Rate.objects.all().select_related('source').order_by('created')
     serializer_class = RateSerializer
     pagination_class = RatePagination
     filterset_class = RateFilter
@@ -23,7 +23,7 @@ class RateViewSet(ModelViewSet):
         filters.DjangoFilterBackend,
         rest_framework_filters.OrderingFilter
     )
-    ordering_field = ['id', 'buy', 'sale']
+    ordering_field = ['id']
     throttle_classes = [AnonCurrencyThrottle]
 
 
