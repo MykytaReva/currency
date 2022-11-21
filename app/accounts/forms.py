@@ -18,9 +18,9 @@ class CreateAvatarForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.request = request
 
-    def __init__(self, request, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.request = request
+    # def __init__(self, request, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.request = request
 
     def save(self, commit=True):
         instance1: UserAvatar = super().save(commit=False)

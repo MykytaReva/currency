@@ -59,6 +59,7 @@ class SignUpView(generic.CreateView):
     form_class = SignUpForm
     success_url = reverse_lazy('index')
     #
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['request'] = self.request
